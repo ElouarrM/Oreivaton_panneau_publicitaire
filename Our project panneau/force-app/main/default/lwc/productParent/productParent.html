@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Liste des produits">
+        <template if:true={products}>
+            <template for:each={products} for:item="product">
+                <c-product-child key={product.Id} 
+                                product={product}>
+                </c-product-child>
+            </template>
+        </template>
+        <template if:false={products}>
+            <p>Aucun produit trouvé.</p>
+        </template>
+    </lightning-card>
+</template>
