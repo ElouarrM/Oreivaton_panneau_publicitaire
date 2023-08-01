@@ -1,0 +1,29 @@
+<template>
+    <lightning-tabset>
+      <lightning-tab label="panneaux" value="panneaux" >
+        <lightning-card>
+        <template if:true={products}>
+            <lightning-layout multiple-rows="true">
+                <template for:each={groupedProducts} for:item="group">
+                    <lightning-layout-item key={group.index} size="12" small-device-size="12" medium-device-size="6" large-device-size="3">
+                        <template for:each={group} for:item="product">
+                            <c-product-child key={product.Id} 
+                                             product={product}
+                                             onproductselect={updateSelectedTile}
+                                             selectedproductid={selectedproductid}
+                                             >
+                            </c-product-child>
+                        </template>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </template>
+        <template if:false={products}>
+            <p>Aucun produit trouvé.</p>
+        </template>
+      </lightning-card>
+      </lightning-tab>
+  </lightning-tabset>
+</template>
+
+
