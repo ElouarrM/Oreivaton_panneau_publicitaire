@@ -1,0 +1,9 @@
+.no-records-image {
+    display: flex;
+    justify-content: center;
+ }
+ 
+ .image-404 {
+    width: 35%;
+    height: 50%;
+ }
