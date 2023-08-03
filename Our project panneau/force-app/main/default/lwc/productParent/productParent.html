@@ -1,0 +1,37 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="8" small-device-size="8" medium-device-size="8" large-device-size="8">
+            <lightning-tabset>
+                <lightning-tab label="panneaux" value="panneaux">
+                    <lightning-card>
+                        <template if:true={products}>
+                            <lightning-layout multiple-rows="true">
+                                <template for:each={groupedProducts} for:item="group">
+                                    <lightning-layout-item key={group.index} size="12" small-device-size="12" medium-device-size="6" large-device-size="3">
+                                        <template for:each={group} for:item="product">
+                                            <c-product-child key={product.Id} 
+                                                            product={product}
+                                                            onproductselect={updateSelectedTile}
+                                                            selectedproductid={selectedproductid}>
+                                            </c-product-child>
+                                        </template>
+                                    </lightning-layout-item>
+                                </template>
+                            </lightning-layout>
+                        </template>
+                        <template if:false={products}>
+                            <p>Aucun produit trouvé.</p>
+                        </template>
+                    </lightning-card>
+                </lightning-tab>
+            </lightning-tabset>
+        </lightning-layout-item>
+        <lightning-layout-item size="4" small-device-size="4" medium-device-size="4" large-device-size="4">
+            <lightning-tabset>
+                <lightning-tab label="Details de panneau" value="Details de panneau">
+            <c-product-details selected-product={selectedProduct}></c-product-details>
+                </lightning-tab>
+            </lightning-tabset>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>
