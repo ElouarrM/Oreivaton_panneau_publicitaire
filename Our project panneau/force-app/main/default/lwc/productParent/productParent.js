@@ -1,5 +1,6 @@
 import { LightningElement, wire,api } from 'lwc';
-
+import opportunityProductDateRanges from '@salesforce/apex/LC002_Reservation_Panneau.opportunityProductDateRanges'
+import opportunityProduct from '@salesforce/apex/LC002_Reservation_Panneau.opportunityProduct'
 import wiredProducts from '@salesforce/apex/LC001_Panneau.wiredProducts';
 const PRODUCTS_PER_ROW = 4; 
 
@@ -13,13 +14,15 @@ export default class ProductParent extends LightningElement {
     selectedProduct;
 
 
-
+savePro;
 
     @wire(wiredProducts)
     wiredProducts ({ error, data }) {
             if (data) {
                 this.products = data ? data : [];
                 console.log(' #### data',data );
+                this.savePro = this.products ;
+
                 this.groupedProducts = this.groupProducts(this.products, PRODUCTS_PER_ROW);
             } else if (error) {
                 console.log(' #### error' );
@@ -53,13 +56,36 @@ export default class ProductParent extends LightningElement {
             this.selectedProduct = this.products.find((product) => product.product.Id === event.detail.productId);
         }
 
+        @wire(opportunityProductDateRanges)
+        opportunityProductDateRanges({ error, data }) {
+            if (data) {
+                console.log(data)
+                this.dateRanges = data;
+            } else if (error) {
+            }
+ 
+        }
+        //list of products that have oppProduct
+        listProduct ;
+          @wire(opportunityProduct)
+          opportunityProduct({ error, data }) {
+              if (data) {
+                  console.log(data)
+                  this.listProduct = data;
+                  console.log('oppPro',data)
+              } else if (error) {
+              }
+            }
+
         handleFilter(event){
             console.log('event fired')
+            console.log( this.savePro)
             this.products = this.savePro ;
             const searchCriteria = event.detail;
             const {address, type ,sDate , fDate} = searchCriteria;
-            
-            console.log('selected address',address);
+            console.log('address',address)
+            console.log('type',type)
+            console.log(this.products)
             let filteredProducts = this.products;
             let filteredOppPro = this.listProduct ;
             console.log('products before filtering',filteredProducts)
@@ -74,9 +100,9 @@ export default class ProductParent extends LightningElement {
                   if (type) {
                     filteredProducts = filteredProducts.filter(
                       (product) => product.product.Type__c.toLowerCase() === type.toLowerCase()
-                    );}
+                    );
                     console.log('apres filtrage par type',JSON.stringify(filteredProducts))
-                       
+                  }
                     if(sDate && fDate ){
                         console.log("are you even seeing me ")
                         //on itere sur la liste des oppproduct correspondent aux dates entrées

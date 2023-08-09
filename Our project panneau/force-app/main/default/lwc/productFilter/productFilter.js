@@ -8,14 +8,11 @@ import wiredProducts from '@salesforce/apex/LC001_Panneau.wiredProducts';
 export default class ProductFilter extends LightningElement {
   
     @track searchResults; 
-   // picklistOrdered = ['toto','tata','titi']
     @track selectedSearchResult;
 
     @api products;
-   @api  uniqueTypes = [] ;
+    @api  uniqueTypes = [] ;
     @api uniqueAddresses = [];
-    picklistOrdered;
-    @track isSearchDisabled = true;
 
 
     @wire(wiredProducts)
@@ -177,25 +174,23 @@ export default class ProductFilter extends LightningElement {
     
       //filters get applied when we click the button 
       handleSearch(){
-        errors = {
-          "Start Date" : "please enter a date",
-          "Finish Date":"please enter a date"
-        }
-
-        this.template.querySelectorAll("lightning-input").forEach(item =>{
-          let label =item.label ;
-          let val = item.value ;
-          console.log(val)
-          if(!val){
-            item.setCustomValidity(this.errors[label])
-          }else{
-            item.setCustomValidity("")
-          }
-          item.reportValidity();
-        })
-        // if(this.selectedSDate && this.selectedFDate && this.value && this.selectedValue){
-        //   console.log("all values are here ")
+        // errors = {
+        //   "Start Date" : "please enter a date",
+        //   "Finish Date":"please enter a date"
         // }
+
+        // this.template.querySelectorAll("lightning-input").forEach(item =>{
+        //   let label =item.label ;
+        //   let val = item.value ;
+        //   console.log(val)
+        //   if(!val){
+        //     item.setCustomValidity(this.errors[label])
+        //   }else{
+        //     item.setCustomValidity("")
+        //   }
+        //   item.reportValidity();
+        // })
+        
         console.log('test')
        const  searchCriteria = {
           address: this.selectedValue,
