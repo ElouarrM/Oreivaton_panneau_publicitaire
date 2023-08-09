@@ -1,0 +1,23 @@
+<template>
+    <lightning-card >
+        <template if:true={selectedProduct}>
+            <div class="slds-p-around_x-small">
+            <div class="slds-box slds-box_small">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-text-align_right">
+                    <button class="slds-button slds-button_outline-brand">Ajouter</button>
+                </div>
+            </div>
+            <div class="slds-align_absolute-center"> <!-- Utilisation de la classe slds-align_absolute-center pour centrer l'image -->
+                <img src={selectedProduct.product.DisplayUrl} class="tile"/>
+            </div>
+            <div class="slds-p-around_medium gray-border">
+                <pre><div class="slds-text-body_small"><strong>Name</strong>             {selectedProduct.product.Name}</div></pre>
+                <pre><div class="slds-text-body_small"><strong>Type</strong>             {selectedProduct.product.Type__c}</div></pre>
+                <pre><div class="slds-text-body_small"><strong>Price</strong>  <lightning-icon icon-name="utility:info" size="x-small"> </lightning-icon>          $<lightning-badge label={selectedProduct.price}></lightning-badge></div></pre>
+            </div>  
+        </div>
+        </div>
+        </template>
+    </lightning-card>
+</template>

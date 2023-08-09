@@ -1,0 +1,29 @@
+.tile {
+    width: 40%;
+    height: 40%;
+    padding: 1px !important;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    
+ 
+  }
+
+
+
+.slds-button_outline-brand {
+    background-color: #ffffff;
+    color: rgba(65, 148, 249, 1);
+    border: 1px solid grey;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.slds-button_outline-brand:hover {
+    background-color: rgba(65, 148, 249, 1);
+    color: #ffffff;
+}
+
