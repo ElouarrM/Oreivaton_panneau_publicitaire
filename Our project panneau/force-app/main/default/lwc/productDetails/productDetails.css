@@ -1,0 +1,10 @@
+.tile {
+    width: 30%;
+    height: 30%;
+    padding: 1px !important;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+ 
+  }
+
