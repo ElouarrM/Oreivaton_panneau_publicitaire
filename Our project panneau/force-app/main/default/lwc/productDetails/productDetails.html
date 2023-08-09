@@ -19,5 +19,10 @@
         </div>
         </div>
         </template>
+        <template if:false={selectedProduct}>
+            <div class="slds-align_absolute-center">
+            <img src={imageUrl} alt="My Image" class="tile" />
+            </div>
+        </template>
     </lightning-card>
 </template>

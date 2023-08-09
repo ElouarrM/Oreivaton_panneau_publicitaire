@@ -1,6 +1,6 @@
 public with sharing class DM001_Panneau {
     public static List<Product2> getProducts() {
-        return [SELECT Id, Name, Type__c, DisplayUrl FROM Product2];
+        return [SELECT Id, Name, Type__c, Adresse__c,DisplayUrl FROM Product2];
     }
 
     public static Decimal getProductPrice(Id productId) {
