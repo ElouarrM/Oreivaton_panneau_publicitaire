@@ -1,0 +1,25 @@
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.title {
+    margin-left: 15px ;
+}
+
+.badge {
+    margin-right: 5px;
+}
+.headersText {
+    font-weight: bold;
+    font-size: 20px;
+}
+.prix {
+    margin-right: 30px;
+}
+.divider {
+    margin-bottom: 5px;
+    margin-right: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-left: 10px;
+}

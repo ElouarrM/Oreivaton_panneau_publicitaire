@@ -107,40 +107,42 @@ savePro;
                         console.log("are you even seeing me ")
                         //on itere sur la liste des oppproduct correspondent aux dates entrées
                         for(let i=0 ;i<this.listProduct.length;i++){
-                            // console.log('date de debut',this.listProduct[i].DateDeDebut__c)
-                            // console.log('date de fin',this.listProduct[i].DateDeFin__c)
+                           
     
-                             console.log(sDate == this.listProduct[i].DateDeDebut__c)
-                             console.log(sDate == this.listProduct[i].DateDeFin__c)
+                            //  console.log(sDate == this.listProduct[i].DateDeDebut__c)
+                            //  console.log(sDate == this.listProduct[i].DateDeFin__c)
 
                             //console.log(this.listProduct[i])
     
                             if(sDate == this.listProduct[i].DateDeDebut__c && fDate == this.listProduct[i].DateDeFin__c){
-                                   console.log("gooos test")
+                                   console.log("gooos test",sDate == this.listProduct[i].DateDeDebut__c && fDate == this.listProduct[i].DateDeFin__c)
                                     console.log(this.listProduct[i].Product2Id)
-                                    
-                                    for(let i=0 ;i<filteredProducts.length;i++){
-                                        console.log("id du produit",JSON.stringify(filteredProducts[i].product.Id))
-                                    }
+                               if (type == 'Roulant'){
+                                console.log(type == 'Roulant')
+                                    //keep only elements with
                                     filteredProducts = filteredProducts.filter((product)=>{
-                                        return product.product.Id != this.listProduct[i].Product2Id
+                                        return product.product.Nb_des_fiches__c > product.product.current_ad_num__c ; 
+
                                     })
+                                
+                               }
+                               for(let i=0;i<filteredProducts.length;i++){
+                                console.log("Id du produit",filteredProducts[i].product.Id)
+                                console.log('id frm opp product',this.listProduct[i].Product2Id)
+                               }
+                                //we keep the signs with dates different than the entered one
+                                filteredProducts = filteredProducts.filter((product)=>{
+                                        return product.product.Id != this.listProduct[i].Product2Id
+                                })
 
                                     console.log("liste apres filtrage par date",JSON.stringify(filteredProducts))   
                                                              
                             }
-                          
-                            
                         }
                       
                     }
     
                 } 
-              
-             
-            
-                
-            
             this.products = filteredProducts;
             this.groupedProducts = this.groupProducts(this.products, PRODUCTS_PER_ROW);
 

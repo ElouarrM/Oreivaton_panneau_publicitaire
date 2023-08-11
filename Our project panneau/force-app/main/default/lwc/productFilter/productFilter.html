@@ -1,19 +1,19 @@
 <template>
     <lightning-card>
-        <form class="slds-grid" onsubmit={handleSearch}>
+        <div class="slds-grid">
 
             <lightning-input class="slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium"
-                type="date" name="startDate" value={selectedSDate} onchange={handleDate} label="Start Date" required>
+                type="date" name="startDate" value={selectedSDate} onchange={handleDate} label="Start Date" >
             </lightning-input>
 
             <lightning-input class="slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium"
-                type="date" name="finishDate" value={selectedFDate} onchange={handleDate} label="Finish Date" required>
+                type="date" name="finishDate" value={selectedFDate} onchange={handleDate} label="Finish Date" >
 
             </lightning-input>
             <!--Type Filter-->
             <div class="slds-form-element slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium">
                 <lightning-combobox name="type" label="Type" value="" placeholder="Select Type" options={options}
-                    onchange={handleChange} required></lightning-combobox>
+                    onchange={handleChange} ></lightning-combobox>
             </div>
             <div class="slds-form-element slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium">
                 <div class="slds-form-element__control ">
@@ -45,9 +45,16 @@
                 </div>
 
             </div>
-            <lightning-button type="submit" class="btn" label="Search" variant="brand" size="small"></lightning-button>
+            <lightning-button 
+                            type="brand" 
+                            class="btn" 
+                            label="Search" 
+                            variant="brand" 
+                            size="small"
+                            onclick={handleSearch}>
+                        </lightning-button>
 
-        </form>
+                    </div>
 
 
     </lightning-card>

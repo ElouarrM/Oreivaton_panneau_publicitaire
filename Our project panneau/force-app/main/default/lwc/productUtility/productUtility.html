@@ -1,0 +1,19 @@
+<template>
+    <div class="card-header headersText">
+            <h2 class="title">Panneau</h2>
+            <h2 class="prix" >Prix</h2>
+    </div>
+    <div class="divider"></div> 
+ 
+        <template for:each={listPanneaux} for:item="panneau">
+            <div class="slds-box slds-box_x-small" key={panneau.Id}>
+                <div class="card-header slds-grid slds-grid_align-spread">
+                <h1 slot="title" class="title">{panneau.product.Name} </h1>
+                <lightning-button-icon  icon-name="utility:delete" data-id={panneau.product.Id} onclick={handleRemove}></lightning-button-icon>
+
+                    <lightning-badge class="slds-badge badge" label={panneau.formattedPrice}></lightning-badge>
+                </div>
+            </div>
+        </template>
+    
+</template>
