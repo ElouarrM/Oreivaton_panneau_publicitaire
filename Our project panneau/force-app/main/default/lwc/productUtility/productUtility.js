@@ -25,14 +25,15 @@ export default class ProductUtility extends LightningElement {
         }
         this.subscription = subscribe(this.messageContext, ComChannel, (message) => {
             console.log('testttt',message.message);
-            this.listPanneaux = message.panneaux ;
+            //this.listPanneaux = message.panneaux ;
             //Pour afficher le MAD on formate le prix 
+            this.listPanneaux.push(message.message)
             this.listPanneaux = this.listPanneaux.map(panneau => ({
                 ...panneau,
                 formattedPrice: `${panneau.price} MAD `
             }));
             
-            console.log('la liste des produits',this.listPanneaux)
+            console.log('la liste des produits',JSON.parse(JSON.stringify(this.listPanneaux)))
             this.publisherMessage = message.message;
             this.ShowToast('Panneau ajouté avec succès', message.message, 'success', 'dismissable');
         });
@@ -50,18 +51,23 @@ export default class ProductUtility extends LightningElement {
 
     handleRemove(event){
         //filter the list
-        var temp = this.listPanneaux.filter((panneau)=>{ 
-            panneau.Id != event.target.dataset.id
-            console.log('panneau de la list',panneau.product.Id)
-            console.log('panneau event',event.target.dataset.id)
-
-        });
-        console.log(temp)
-        this.listPanneaux.splice(this.listPanneaux.indexOf(event.target.dataset.id), 1);
-        this.listPanneaux = temp.length ? temp : [];
-        this.listEmpty = this.listPanneaux?.length == 0;
-        console.log(this.listPanneaux.length);
+        console.log('liste avant filtrage',JSON.parse(JSON.stringify(this.listPanneaux)))
+        var temp = this.listPanneaux.filter((panneau) => {
+            console.log('from list',panneau.product.Id)
+            console.log('from event',event.target.dataset.id)
+            
+            return panneau.product.Id != event.target.dataset.id}
+        );
+        console.log('liste apres filtrage',JSON.parse(JSON.stringify(temp)))
+        this.listPanneaux = temp.length ? temp : [] ;
         console.log(JSON.parse(JSON.stringify(this.listPanneaux)))
+        // const test = this.listPanneaux.splice(this.listPanneaux.indexOf(event.target.dataset.id), 1);
+        // //la liste d'affiche normalement
+        // console.log('liste apres splice',JSON.stringify(this.listPanneaux))
+        // this.listPanneaux = test.length ? test : [];
+        // this.listEmpty = this.listPanneaux?.length == 0;
+        // console.log(this.listPanneaux.length);
+        // console.log(JSON.parse(JSON.stringify(this.listPanneaux)))
     }
  
 }

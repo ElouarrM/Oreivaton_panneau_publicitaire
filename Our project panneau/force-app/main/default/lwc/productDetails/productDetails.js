@@ -12,10 +12,12 @@ export default class ProductDetails extends LightningElement {
     handleClick(){
             //console.log('Le produit selectionné est :',JSON.stringify(this.selectedProduct))
             //this.listOfPanneaux = [...this.listOfPanneaux , this.selectedProduct]
-            this.listOfPanneaux.push(this.selectedProduct)
+            //this.listOfPanneaux.push(this.selectedProduct)
             console.log("liste des produits ajoutés",JSON.parse(JSON.stringify(this.listOfPanneaux)))
             console.log(typeof this.listOfPanneaux)
-            let message = {message: this.selectedProduct , panneaux:this.listOfPanneaux};
+            //let message = {message: this.selectedProduct , panneaux:this.listOfPanneaux};
+            let message = {message: this.selectedProduct};
+
             publish(this.messageContext, ComChannel, message);
         
     }
