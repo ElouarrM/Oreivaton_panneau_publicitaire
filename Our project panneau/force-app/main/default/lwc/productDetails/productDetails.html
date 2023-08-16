@@ -1,31 +1,61 @@
 <template>
-    <lightning-card >
+    <lightning-card>
         <template if:true={selectedProduct}>
             <div class="slds-p-around_x-small">
-            <div class="slds-box slds-box_small">
-            <div class="slds-grid slds-gutters">
-                <div class="slds-col slds-size_1-of-1 slds-text-align_right">
-                    <button class="slds-button slds-button_outline-brand" onclick={handleClick}>Ajouter</button>
+                <div class="slds-box slds-box_small">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-text-align_right">
+                            <button class="slds-button slds-button_outline-brand" onclick={handleClick}>Ajouter</button>
+                        </div>
+                    </div>
+                    <div class="slds-align_absolute-center">
+                        <img src={selectedProduct.product.DisplayUrl} class="tile" />
+                    </div>
+                    <div class="slds-p-around_medium gray-border">
+                        <pre><div class="slds-text-body_small">Name         <strong>{selectedProduct.product.Name}</strong></div></pre>
+                        <pre><div class="slds-text-body_small">Type         <strong>{selectedProduct.product.Type__c}</strong></div></pre>
+                        <pre><div class="slds-text-body_small">Price<lightning-icon icon-name="utility:info" size="x-small" title="C'est le prix par jour" aria-label="C'est le prix par jour"></lightning-icon>      $<lightning-badge label={selectedProduct.price}></lightning-badge> </div></pre>
+                        <pre><div class="slds-text-body_small">Reservations
+                            <table>
+                                <thead>
+                                    <tr>
+                                    <th>Date Début</th>
+                                    <th>Date Fin</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                            <template for:each={oppProducts} for:item="opp">
+                                                <tr key={opp.Id}>
+                                                    <td>{opp.DateDeDebut__c}</td>
+                                                    <td>{opp.DateDeFin__c}</td>
+
+                                                     </tr>
+                                            </template>
+                            
+                            </tbody>
+                            </table> 
+                                
+                        </div>
+                        </pre>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input class="slds-size_1-of-1" type="date" name="startDate"
+                                    value={selectedSDate} label="Date de debut" required></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input class="slds-size_1-of-1" type="date" name="endDate"
+                                    value={selectedEDate} label="Date de fin" required></lightning-input>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="slds-align_absolute-center"> <!-- Utilisation de la classe slds-align_absolute-center pour centrer l'image -->
-                <img src={selectedProduct.product.DisplayUrl} class="tile"/>
-            </div>
-            <div class="slds-p-around_medium gray-border">
-                <pre><div class="slds-text-body_small"><strong>Name</strong>             {selectedProduct.product.Name}</div></pre>
-                <pre><div class="slds-text-body_small"><strong>Type</strong>             {selectedProduct.product.Type__c}</div></pre>
-                <pre><div class="slds-text-body_small"><strong>Price</strong>  <lightning-icon icon-name="utility:info" size="x-small"> </lightning-icon>          $<lightning-badge label={selectedProduct.price}></lightning-badge></div></pre>
-                <pre><div class="slds-text-body_small"><strong>Date de debut</strong> <lightning-input class="" type="date" name="startDate" ></lightning-input></div></pre>
-                <pre><div class="slds-text-body_small"><strong>Date de fin</strong></div> <lightning-input class="slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium" type="date" name="finishDate" ></lightning-input></pre>
-            </div>  
-       
-           
-        </div>
-        </div>
         </template>
         <template if:false={selectedProduct}>
             <div class="slds-align_absolute-center">
-            <img src={imageUrl} alt="My Image" class="tile" />
+                <img src={imageUrl} alt="My Image" class="tile" />
             </div>
         </template>
     </lightning-card>

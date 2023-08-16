@@ -1,0 +1,193 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 130023424 bytes for Failed to commit area from 0x0000000084000000 to 0x000000008bc00000 of length 130023424.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (./open/src/hotspot/os/windows/os_windows.cpp:3292), pid=42272, tid=28496
+#
+# JRE version:  (11.0.19+9) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (11.0.19+9-LTS-224, mixed mode, sharing, tiered, compressed oops, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: net.sourceforge.pmd.PMD -f csv --no-cache -d c:\Users\ghita\Desktop\utility\Oreivaton_panneau_publicitaire\Our project panneau\force-app\main\default\classes\DM001_Panneau.cls -R c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\rulesets\apex_ruleset.xml
+
+Host: Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz, 8 cores, 7G,  Windows 10 , 64 bit Build 19041 (10.0.19041.3155)
+Time: Wed Aug 16 10:54:02 2023 Maroc (heure d64 bit Build 19041 (10.0.19041.3155) elapsed time: 0.012334 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000023c0dd23000):  JavaThread "Unknown thread" [_thread_in_vm, id=28496, stack(0x000000bf11c00000,0x000000bf11d00000)]
+
+Stack: [0x000000bf11c00000,0x000000bf11d00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x65fe1a]
+V  [jvm.dll+0x7a2bbf]
+V  [jvm.dll+0x7a4289]
+V  [jvm.dll+0x7a4923]
+V  [jvm.dll+0x258a25]
+V  [jvm.dll+0x65d179]
+V  [jvm.dll+0x651e55]
+V  [jvm.dll+0x31302d]
+V  [jvm.dll+0x312e92]
+V  [jvm.dll+0x317ac6]
+V  [jvm.dll+0x35fbc0]
+V  [jvm.dll+0x35f632]
+V  [jvm.dll+0x2ee6b8]
+V  [jvm.dll+0x2ef7c5]
+V  [jvm.dll+0x77bc17]
+V  [jvm.dll+0x77d4ff]
+V  [jvm.dll+0x36ce69]
+V  [jvm.dll+0x76070f]
+V  [jvm.dll+0x3defe7]
+V  [jvm.dll+0x3e1091]
+C  [jli.dll+0x52e7]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17614]
+C  [ntdll.dll+0x526b1]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000023c0bbe7ab0, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x0000023c0dd36000 GCTaskThread "GC Thread#0" [stack: 0x000000bf11d00000,0x000000bf11e00000] [id=16504]
+  0x0000023c0dd67000 ConcurrentGCThread "G1 Main Marker" [stack: 0x000000bf11e00000,0x000000bf11f00000] [id=29832]
+  0x0000023c0dd68800 ConcurrentGCThread "G1 Conc#0" [stack: 0x000000bf11f00000,0x000000bf12000000] [id=46984]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fff8225f177]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x0000023c0dd20090] Heap_lock - owner thread: 0x0000023c0dd23000
+
+Heap address: 0x0000000084000000, size: 1984 MB, Compressed Oops mode: Non-zero based: 0x0000000084000000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff6dc8b0000 - 0x00007ff6dc8c0000 	C:\Program Files\Java\jdk-11\bin\java.exe
+0x00007ffff6850000 - 0x00007ffff6a48000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ffff61e0000 - 0x00007ffff629f000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ffff4240000 - 0x00007ffff4536000 	C:\Windows\System32\KERNELBASE.dll
+0x00007ffff4540000 - 0x00007ffff4640000 	C:\Windows\System32\ucrtbase.dll
+0x00007fffd55a0000 - 0x00007fffd55bb000 	C:\Program Files\Java\jdk-11\bin\VCRUNTIME140.dll
+0x00007fffca990000 - 0x00007fffca9a9000 	C:\Program Files\Java\jdk-11\bin\jli.dll
+0x00007ffff5280000 - 0x00007ffff532f000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ffff62a0000 - 0x00007ffff633e000 	C:\Windows\System32\msvcrt.dll
+0x00007ffff6340000 - 0x00007ffff63dc000 	C:\Windows\System32\sechost.dll
+0x00007ffff6570000 - 0x00007ffff6696000 	C:\Windows\System32\RPCRT4.dll
+0x00007ffff49e0000 - 0x00007ffff4b7d000 	C:\Windows\System32\USER32.dll
+0x00007ffff4640000 - 0x00007ffff4662000 	C:\Windows\System32\win32u.dll
+0x00007fffdde90000 - 0x00007fffde12a000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e\COMCTL32.dll
+0x00007ffff6730000 - 0x00007ffff675c000 	C:\Windows\System32\GDI32.dll
+0x00007ffff3f30000 - 0x00007ffff4045000 	C:\Windows\System32\gdi32full.dll
+0x00007ffff46f0000 - 0x00007ffff478d000 	C:\Windows\System32\msvcp_win.dll
+0x00007fffed100000 - 0x00007fffed10a000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ffff6700000 - 0x00007ffff6730000 	C:\Windows\System32\IMM32.DLL
+0x00007fffee140000 - 0x00007fffee14c000 	C:\Program Files\Java\jdk-11\bin\vcruntime140_1.dll
+0x00007fffb6d50000 - 0x00007fffb6dde000 	C:\Program Files\Java\jdk-11\bin\msvcp140.dll
+0x00007fff81f60000 - 0x00007fff82acc000 	C:\Program Files\Java\jdk-11\bin\server\jvm.dll
+0x00007ffff4c50000 - 0x00007ffff4c58000 	C:\Windows\System32\PSAPI.DLL
+0x00007fffedcf0000 - 0x00007fffedcf9000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007fffe07b0000 - 0x00007fffe07d7000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ffff5330000 - 0x00007ffff539b000 	C:\Windows\System32\WS2_32.dll
+0x00007ffff2770000 - 0x00007ffff2782000 	C:\Windows\SYSTEM32\kernel.appcore.dll
+0x00007fffd5230000 - 0x00007fffd5240000 	C:\Program Files\Java\jdk-11\bin\verify.dll
+0x00007ffff1b80000 - 0x00007ffff1d64000 	C:\Windows\SYSTEM32\DBGHELP.DLL
+0x00007fffd8e00000 - 0x00007fffd8e34000 	C:\Windows\SYSTEM32\dbgcore.DLL
+0x00007ffff41b0000 - 0x00007ffff4232000 	C:\Windows\System32\bcryptPrimitives.dll
+0x00007fffca960000 - 0x00007fffca988000 	C:\Program Files\Java\jdk-11\bin\java.dll
+0x00007fffd3470000 - 0x00007fffd347a000 	C:\Program Files\Java\jdk-11\bin\jimage.dll
+0x00007fffca940000 - 0x00007fffca957000 	C:\Program Files\Java\jdk-11\bin\zip.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Java\jdk-11\bin;C:\Windows\SYSTEM32;C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e;C:\Program Files\Java\jdk-11\bin\server
+
+VM Arguments:
+java_command: net.sourceforge.pmd.PMD -f csv --no-cache -d c:\Users\ghita\Desktop\utility\Oreivaton_panneau_publicitaire\Our project panneau\force-app\main\default\classes\DM001_Panneau.cls -R c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\rulesets\apex_ruleset.xml
+java_class_path (initial): c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\animal-sniffer-annotations-1.14.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\antlr-2.7.7.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\antlr-runtime-3.5.2.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\antlr4-runtime-4.7.2.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\aopalliance-1.0.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\asm-9.2.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\cglib-3.3.0.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\commons-io-2.6.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\commons-lang3-3.8.1.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\error_prone_annotations-2.1.3.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\gson-2.8.9.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\j2objc-annotations-1.1.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\javax.inject-1.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\jcommander-1.48.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\jol-core-0.4.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\jsr305-3.0.2.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\logback-classic-1.2.9.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\logback-core-1.2.9.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\pmd-apex-6.42.0.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\pmd-apex-jorje-6.42.0-lib.jar;c:\Users\ghita\.vscode\extensions\chuckjonas.apex-pmd-0.5.9\bin\pmd\lib\pmd-core-6.42.0.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 130023424                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2080374784                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5836300                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122910970                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122910970                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk-11
+PATH=C:\Program Files\Java\jdk-11\bin;C:\oraclexe\app\oracle\product\11.2.0\server\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\msys64\mingw64\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Users\ghita\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\Scripts;C:\xampp\php;C:\ProgramData\Microsoft\Windows\Start Menu\Programs;C:\Program Files\Git\cmd;C:\Dev\opencv\build\x64\vc15\bin;C:\Dev\opencv\build\x64\vc15\lib;C:\Program Files\CMake\bin;C:\Dev\opencv\build\x64\mingw\lib;C:\sqlite3;C:\Program Files\nodejs\;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Git\cmd\git.exe;C:\Users\ghita\flutter\bin;C:\Program Files\apache-maven-3.9.2-bin\apache-maven-3.9.2\bin;C:\Program Files\PowerShell\7\;C:\Users\ghita\AppData\Local\Microsoft\WindowsApps;C:\MinGW\bin;C:\Program Files\CodeBlocks\MinGW\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Users\ghita\AppData\Local\Programs\Python\Python310\Scripts;C:\Users\ghita\AppData\Local\Programs\Python\Python310\include;C:\Users\ghita\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.10;C:\xampp\php;C:\ProgramData\Microsoft\Windows\Start Menu\Programs;C:\Users\ghita\AppData\Local\GitHubDesktop\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2022.2\bin;C:\Users\ghita\AppData\Local\gitkraken\bin;C:\Users\ghita\AppData\Roaming\npm;C:\Users\ghita\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ghita\flutter\bin;C:\Users\ghita\AppData\Local\Android\Sdk;C:\Program Files\sfdx\bin;C:\Program Files\Java\jdk-11\bin;
+USERNAME=ghita
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 126 Stepping 5, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10 , 64 bit Build 19041 (10.0.19041.3155)
+
+CPU:total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 126 stepping 5 microcode 0xa0, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx, evex, sha, fma
+
+Memory: 4k page, system-wide physical 7930M (223M free)
+TotalPageFile size 20218M (AvailPageFile size 77M)
+current process WorkingSet (physical memory assigned to process): 9M, peak: 9M
+current process commit charge ("private bytes"): 60M, peak: 183M
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (11.0.19+9-LTS-224) for windows-amd64 JRE (11.0.19+9-LTS-224), built on Mar 27 2023 08:48:55 by "mach5one" with MS VC++ 17.1 (VS2022)
+
+END.

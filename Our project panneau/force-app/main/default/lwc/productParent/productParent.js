@@ -2,16 +2,15 @@ import { LightningElement, wire,api } from 'lwc';
 import opportunityProductDateRanges from '@salesforce/apex/LC002_Reservation_Panneau.opportunityProductDateRanges'
 import opportunityProduct from '@salesforce/apex/LC002_Reservation_Panneau.opportunityProduct'
 import wiredProducts from '@salesforce/apex/LC001_Panneau.wiredProducts';
+
 const PRODUCTS_PER_ROW = 4; 
-
-
-
 
 export default class ProductParent extends LightningElement {
     @api products;
     groupedProducts;
     @api selectedproductid;
     selectedProduct;
+    oppProduct = [] ;
 
 
 savePro;
@@ -125,11 +124,9 @@ savePro;
 
                                     })
                                 
-                               }
-                               for(let i=0;i<filteredProducts.length;i++){
-                                console.log("Id du produit",filteredProducts[i].product.Id)
-                                console.log('id frm opp product',this.listProduct[i].Product2Id)
-                               }
+                               }                                console.log("Id du produit",filteredProducts[i].product.Id)
+
+                             
                                 //we keep the signs with dates different than the entered one
                                 filteredProducts = filteredProducts.filter((product)=>{
                                         return product.product.Id != this.listProduct[i].Product2Id
@@ -147,6 +144,13 @@ savePro;
             this.groupedProducts = this.groupProducts(this.products, PRODUCTS_PER_ROW);
 
             console.log('heloo',JSON.stringify(this.groupedProducts))
+
+            fullCalendarJsInitialized = false ;
+
+      
+            
         }
+
+    
 }
 
