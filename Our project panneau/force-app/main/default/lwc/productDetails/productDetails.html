@@ -27,8 +27,8 @@
                                     
                                             <template for:each={oppProducts} for:item="opp">
                                                 <tr key={opp.Id}>
-                                                    <td>{opp.DateDeDebut__c}</td>
-                                                    <td>{opp.DateDeFin__c}</td>
+                                                    <td>{opp.formattedDateDeDebut}</td>
+                                                    <td>{opp.formattedDateDeFin}</td>
 
                                                      </tr>
                                             </template>

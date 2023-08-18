@@ -1,13 +1,24 @@
 public with sharing class SM001_Panneau {
-    public static List<LC001_Panneau.ProductWrapper> getWrappedProducts() {
+    public static List<ProductWrapper> getWrappedProducts() {
         List<Product2> productList = DM001_Panneau.getProducts();
-        List<LC001_Panneau.ProductWrapper> productWrappers = new List<LC001_Panneau.ProductWrapper>();
+        List<ProductWrapper> productWrappers = new List<ProductWrapper>();
         for (Product2 product : productList) {
-            LC001_Panneau.ProductWrapper wrapper = new LC001_Panneau.ProductWrapper();
+           ProductWrapper wrapper = new ProductWrapper();
             wrapper.product = product;
             wrapper.price = DM001_Panneau.getProductPrice(product.Id);
+            wrapper.opportunityProducts = DM001_Panneau.getOppProdByProductId(product.Id);
             productWrappers.add(wrapper);
         }
         return productWrappers;
     }
+
+    public class ProductWrapper {
+        @AuraEnabled
+        public Product2 product { get; set; }
+        @AuraEnabled
+        public Decimal price { get; set; }
+        @AuraEnabled
+       public List<OpportunityLineItem> opportunityProducts { get; set; }
+    }
+    
 }

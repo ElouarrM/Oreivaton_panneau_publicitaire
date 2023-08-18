@@ -16,6 +16,11 @@ export default class ProductDetails extends LightningElement {
     wiredProducts ({ error, data }) {
             if (data) {
                 this.oppProducts = data ? data : [];
+                this.oppProducts = data.map(opp => ({
+                    ...opp,
+                    formattedDateDeDebut: this.formatDate(opp.DateDeDebut__c),
+                    formattedDateDeFin: this.formatDate(opp.DateDeFin__c)
+                }));
                 console.log('from product details',JSON.parse(JSON.stringify(this.oppProducts)) );
                 console.log('this is me',JSON.stringify(this.selectedProduct))
                 
@@ -25,6 +30,13 @@ export default class ProductDetails extends LightningElement {
                 this.oppProducts = undefined;
 
             }
+        }
+        formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = ('0' + date.getDate()).slice(-2);
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
         }
 
 
@@ -38,5 +50,13 @@ export default class ProductDetails extends LightningElement {
 
             publish(this.messageContext, ComChannel, message);
         
+    }
+
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
     }
 }
