@@ -167,29 +167,11 @@ export default class ProductFilter extends LightningElement {
             this.selectedFDate = event.target.value;
           }
       }
-    //   updateSearchButtonState() {
-        
-    //     this.isSearchDisabled = !this.selectedSDate || !this.selectedFDate || !this.selectedValue || !this.value;
-    // }
+    
     
       //filters get applied when we click the button 
       handleSearch(){
-        // errors = {
-        //   "Start Date" : "please enter a date",
-        //   "Finish Date":"please enter a date"
-        // }
-
-        // this.template.querySelectorAll("lightning-input").forEach(item =>{
-        //   let label =item.label ;
-        //   let val = item.value ;
-        //   console.log(val)
-        //   if(!val){
-        //     item.setCustomValidity(this.errors[label])
-        //   }else{
-        //     item.setCustomValidity("")
-        //   }
-        //   item.reportValidity();
-        // })
+      
         
         console.log('test')
        const  searchCriteria = {

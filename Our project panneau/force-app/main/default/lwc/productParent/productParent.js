@@ -12,11 +12,11 @@ export default class ProductParent extends LightningElement {
     selectedProduct;
     oppProduct = [] ;
     listOpp ;
+    @api recordId ;
 
 
 
 savePro;
-
 
     @wire(wiredProducts)
     wiredProducts ({ error, data }) {
@@ -51,9 +51,8 @@ savePro;
             return groupedArray;
         }
   
-    
-
         updateSelectedTile(event) {
+            console.log('solving problem',this.recordId)
             this.selectedproductid = event.detail.productId;
             this.selectedProduct = this.products.find((product) => product.product.Id === event.detail.productId);
         }
@@ -99,6 +98,15 @@ savePro;
                   );
                   console.log('apres filtrage par adresse',JSON.stringify(filteredProducts))}
                     if (type) {
+                        if (type == 'Roulant'){
+                                        console.log(type == 'Roulant')
+                                            //keep only elements with available ads
+                                            filteredProducts = filteredProducts.filter((product)=>{
+                                                return product.product.Nb_des_fiches__c > product.product.current_ad_num__c ; 
+        
+                                            })
+                                        
+                                       }
                     filteredProducts = filteredProducts.filter(
                       (product) => product.product.Type__c.toLowerCase() === type.toLowerCase()
                     );
@@ -109,18 +117,7 @@ savePro;
                     if(sDate && fDate ){
                         console.log(sDate)
                         console.log(fDate)
-                    //    for(let i=0;i<filteredProducts.length;i++){
-                    //         for(let j=0;j<filteredProducts[i].opportunityProducts.length;j++){
-                    //             if((sDate == filteredProducts[i].opportunityProducts[j].DateDeDebut__c && fDate == filteredProducts[i].opportunityProducts[j].DateDeFin__c) ||
-                    //             (sDate > filteredProducts[i].opportunityProducts[j].DateDeDebut__c && fDate < filteredProducts[i].opportunityProducts[j].DateDeFin__c) ||
-                    //             (sDate < filteredProducts[i].opportunityProducts[j].DateDeDebut__c && fDate > filteredProducts[i].opportunityProducts[j].DateDeFin__c))
-                    //             {
-                    //                 filteredProducts = filteredProducts.filter((product)=>
-
-                    //                 )
-                    //             }
-                    //         }
-                    //    }
+                  
 
                     filteredProducts = filteredProducts.filter((product) => {
                         const noOverlappingOccurrences = product.opportunityProducts.every((opportunityProduct, i) => {
@@ -195,7 +192,6 @@ savePro;
 
             console.log('heloo',JSON.stringify(this.groupedProducts))
 
-            fullCalendarJsInitialized = false ;
 
       
             
