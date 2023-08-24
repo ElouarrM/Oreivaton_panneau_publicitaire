@@ -50,11 +50,13 @@ savePro;
         
             return groupedArray;
         }
-  
+        @api formatedPrice ;
         updateSelectedTile(event) {
           
             this.selectedproductid = event.detail.productId;
             this.selectedProduct = this.products.find((product) => product.product.Id === event.detail.productId);
+            this.formatedPrice = `${this.selectedProduct.price} MAD`;
+            console.log('priiice',this.formatedPrice)
             console.log('update',this.selectedProduct)
         }
 

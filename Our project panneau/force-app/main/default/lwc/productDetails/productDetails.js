@@ -24,6 +24,7 @@ export default class ProductDetails extends LightningElement {
     @track listIds = []; 
     @track list1 = [];
     @api montant ;
+    @api formatedPrice ;
 
 
     @wire(getOppProdByProductId , { productId: '$selectedProduct.product.Id'  })
@@ -36,7 +37,7 @@ export default class ProductDetails extends LightningElement {
                     formattedDateDeFin: this.formatDate(opp.DateDeFin__c)
                 }));
                 console.log('testing',JSON.stringify(this.oppProducts));
-
+                
                 this.enableDisableButton(this.listIds);
 
             } else if (error) {

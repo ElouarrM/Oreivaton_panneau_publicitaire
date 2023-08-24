@@ -14,7 +14,7 @@
                     <div class="slds-p-around_medium gray-border">
                         <pre><div class="slds-text-body_small">Name         <strong>{selectedProduct.product.Name}</strong></div></pre>
                         <pre><div class="slds-text-body_small">Type         <strong>{selectedProduct.product.Type__c}</strong></div></pre>
-                        <pre><div class="slds-text-body_small">Price<lightning-icon icon-name="utility:info" size="x-small" title="C'est le prix par jour" aria-label="C'est le prix par jour"></lightning-icon>      $<lightning-badge label={selectedProduct.price}></lightning-badge> </div></pre>
+                        <pre><div class="slds-text-body_small">Prix<lightning-icon icon-name="utility:info" size="x-small" title="C'est le prix par jour" aria-label="C'est le prix par jour"></lightning-icon>      <lightning-badge label={formatedPrice} style="margin-left: 34px"></lightning-badge> </div></pre>
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
                                 <lightning-input class="slds-size_1-of-1" type="date" name="startDate"
