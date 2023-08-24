@@ -28,9 +28,12 @@ export default class ProductUtility extends LightningElement {
         UnitPrice:''
     }
 
+    listIds = [];
+
     connectedCallback() {
         console.log('callback is being called')
         this.handleSubscribe();
+        this.subscription = null;
     }
     handleSubscribe() {
         console.log('testing function')
@@ -38,32 +41,43 @@ export default class ProductUtility extends LightningElement {
             return;
         }
         this.subscription = subscribe(this.messageContext, ComChannel, (message) => {
-            
-            //Reservation de panneaux attributes
-            this.oppProduct.DateDeDebut__c = new Date(message.dDebut);
-            this.oppProduct.DateDeFin__c =  new Date(message.dFin) ;
+            let  id = message.message.product.Id ;
+            /*if list is empty add without check if not add only id not
+            existing on the list  */
+            if(!this.listIds.includes(id)){
+                 this.listIds.push(id);
+                         //ce bloque s'execute apres check si reser exite !!!
+                this.oppProduct.DateDeDebut__c = new Date(message.dDebut);
+                this.oppProduct.DateDeFin__c =  new Date(message.dFin) ;
 
-            var dd = new Date(message.dDebut)
-            var df = new Date(message.dFin)
+                var dd = new Date(message.dDebut)
+                var df = new Date(message.dFin)
 
-            var Difference_In_Time = df.getTime() - dd.getTime()
-            this.oppProduct.Quantity = Difference_In_Time / (1000 * 3600 * 24);
-            this.oppProduct.OpportunityId = message.recordId ;
-            this.oppProduct.Product2Id = message.message.product.Id 
-            this.oppProduct.UnitPrice = message.montant ;
-            this.listOppProducts.push(this.oppProduct)
-            console.log('another test',JSON.parse(JSON.stringify(this.listOppProducts)))
-            console.log('created oppProduct',JSON.parse(JSON.stringify(this.oppProduct)));
-            //Pour afficher le MAD on formate le prix 
-            this.listPanneaux.push(message.message)
-            this.listPanneaux = this.listPanneaux.map(panneau => ({
-                ...panneau,
+                var Difference_In_Time = df.getTime() - dd.getTime()
+                this.oppProduct.Quantity = Difference_In_Time / (1000 * 3600 * 24);
+                this.oppProduct.OpportunityId = message.recordId ;
+                this.oppProduct.Product2Id = message.message.product.Id 
+                this.oppProduct.UnitPrice = message.montant ;
+                this.listOppProducts.push(this.oppProduct)
+                console.log('another test',JSON.parse(JSON.stringify(this.listOppProducts)))
+                console.log('created oppProduct',JSON.parse(JSON.stringify(this.oppProduct)));
+                //Pour afficher le MAD on formate le prix 
+                this.listPanneaux.push(message.message)
+                this.listPanneaux = this.listPanneaux.map(panneau => ({
+                    ...panneau,
                 formattedPrice: `${panneau.price} MAD `
             }));
+            this.ShowToast('Panneau ajouté avec succès', message.message, 'success', 'dismissable');
             
+            }else{
+                this.ShowToast('Panneau exist deja', message.message, 'info', 'dismissable');
+            }
+           
             console.log('la liste des produits',JSON.parse(JSON.stringify(this.listPanneaux)))
             this.publisherMessage = message.message;
-            this.ShowToast('Panneau ajouté avec succès', message.message, 'success', 'dismissable');
+                
+            //this.ShowToast('Panneau ajouté avec succès', message.message, 'success', 'dismissable');
+            
         });
     }
     
@@ -81,7 +95,6 @@ export default class ProductUtility extends LightningElement {
        
 
     handleRemove(event){
-        console.log('heloo11')
         var temp = this.listPanneaux.filter((panneau) => {
          
             
@@ -89,16 +102,24 @@ export default class ProductUtility extends LightningElement {
         );
         console.log(JSON.parse(JSON.stringify(temp)))
 
-        var removedElement = this.listPanneaux.filter((panneau) => {
-            return panneau.product.Id == event.target.dataset.id}
+      
+        var temp1 = this.listOppProducts.filter((opp) => {   
+            return opp.Product2Id != event.target.dataset.id}
         );
 
-        console.log('removed',JSON.parse(JSON.stringify(removedElement)))
-        this.listPanneaux = temp.length ? temp : [] ;
+        var temp2 = this.listIds.filter((id) => {   
+            return id != event.target.dataset.id}
+        );
 
-        let message = {message:removedElement };
+        this.listPanneaux = temp.length ? temp : [] ;
+        this.listOppProducts = temp1.length ? temp1 : [] ;
+        this.listIds = temp2.length ? temp2 : [] ;
+
+       
+
             
-        publish(this.messageContext, RemoveChannel, message);
+        // let message = {message:removedElement };
+        // publish(this.messageContext, RemoveChannel, message);
     }
 
    

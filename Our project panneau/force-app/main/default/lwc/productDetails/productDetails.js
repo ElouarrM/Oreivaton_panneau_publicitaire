@@ -6,6 +6,7 @@ import {publish, MessageContext , subscribe} from 'lightning/messageService'
 import MY_IMAGE from '@salesforce/resourceUrl/imgae'
 import getOppProdByProductId from  '@salesforce/apex/DM001_Panneau.getOppProdByProductId'
 
+
 export default class ProductDetails extends LightningElement {
     
     @api products ;
@@ -20,10 +21,12 @@ export default class ProductDetails extends LightningElement {
     @track isButtonDisabled;
     sDate ; 
     fDate ;
-    @track list = []; 
+    @track listIds = []; 
     @track list1 = [];
     @api montant ;
-    @wire(getOppProdByProductId , { productId: '$selectedProduct.product.Id' })
+
+
+    @wire(getOppProdByProductId , { productId: '$selectedProduct.product.Id'  })
     wiredProducts ({ error, data }) {
             if (data) {
                 this.oppProducts = data ? data : [];
@@ -32,8 +35,9 @@ export default class ProductDetails extends LightningElement {
                     formattedDateDeDebut: this.formatDate(opp.DateDeDebut__c),
                     formattedDateDeFin: this.formatDate(opp.DateDeFin__c)
                 }));
+                console.log('testing',JSON.stringify(this.oppProducts));
 
-                this.enableDisableButton(this.list);
+                this.enableDisableButton(this.listIds);
 
             } else if (error) {
                 console.log(' #### error' );
@@ -61,42 +65,46 @@ export default class ProductDetails extends LightningElement {
             });
         }  
 
-    handleClick(event){
-         const Id = event.target.dataset.id;
-       
-       console.log(Id)
-       let exists = false ;
+    handleClick(){
+        console.log('publishing the event without checking');
+    
 
-       if(this.list.length == 0){
-        this.list.push(Id);
-        console.log(this.montant);
+       if(typeof this.sDate == 'undefined' || typeof this.fDate == 'undefined' || typeof this.montant == 'undefined'){
+                    this.ShowToast('Error','Must fill all fields','warning','dismissable ')
 
-        let message = {message: this.selectedProduct , dDebut:this.sDate , dFin:this.fDate , montant : this.montant ,recordId:this.recordId};
-                publish(this.messageContext, ComChannel, message);
-       }else{
-
-        this.list.forEach((id)=>{
-
-            if(id === this.selectedProduct.product.Id){
-                exists = true ;
-              
-
-            }
-
-        })
-                if(!exists){
-                    console.log(this.montant);
-                    let message = {message: this.selectedProduct , dDebut:this.sDate , dFin:this.fDate ,montant : this.montant , recordId:this.recordId};
-                    publish(this.messageContext, ComChannel, message);
-                    this.list.push(Id);
-                }}
-
+       }else
+       {
         
-       
+            if(this.oppProducts.length == 0){
+               
+                let message = {message: this.selectedProduct , dDebut:this.sDate , dFin:this.fDate , montant : this.montant ,recordId:this.recordId};
+                publish(this.messageContext, ComChannel, message);
+                console.log('published');
+     
 
-        this.isButtonDisabled = true ;
+            }else
+            {
+        
+                for(let i=0;this.oppProducts.length;i++){
 
+                    if(this.sDate >= this.oppProducts[i].DateDeDebut__c && this.sDate <= this.oppProducts[i].DateDeFin__c ||
+                        this.fDate >= this.oppProducts[i].DateDeDebut__c && this.fDate <= this.oppProducts[i].DateDeFin__c ||
+                        this.sDate <= this.oppProducts[i].DateDeDebut__c && this.fDate >= this.oppProducts[i].DateDeFin__c )
+                    {
+                            this.ShowToast('Error','Date already full','warning','dismissable ')
+                    }else
+                    {
+                            let message = {message: this.selectedProduct , dDebut:this.sDate , dFin:this.fDate , montant : this.montant ,recordId:this.recordId};
+                            publish(this.messageContext, ComChannel, message);
+                    }
+            
+                                            }
+                
+        }
     }
+    }
+
+    
 
     handleDate(event){
         
@@ -123,7 +131,7 @@ export default class ProductDetails extends LightningElement {
     }
     
     connectedCallback(){
-
+            console.log('i m called now');
          this.handleSubscribe();
 
     }
@@ -135,7 +143,7 @@ export default class ProductDetails extends LightningElement {
         this.subscription = subscribe(this.messageContext, RemoveChannel, (message) => {
             console.log(message.message);
             this.publisherMessage = message.message;
-            console.log('titiii',JSON.parse(JSONstringify(message.message)))
+            
             this.listOfPanneaux.filter((product)=>{
                 this.publisherMessage.product.Id != product.product.Id ;
             })

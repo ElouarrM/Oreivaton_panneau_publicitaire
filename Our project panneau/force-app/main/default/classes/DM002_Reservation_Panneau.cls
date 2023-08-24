@@ -2,8 +2,9 @@ public with sharing class DM002_Reservation_Panneau {
 
     public static List<OpportunityLineItem> getOpportunityLineItem(){
     List<OpportunityLineItem> opportunityLineItems = [
-        SELECT DateDeDebut__c, DateDeFin__c,Product2.Type__c ,Product2.Adresse__c
+        SELECT DateDeDebut__c, DateDeFin__c,Product2.Type__c ,Product2.Adresse__c 
         FROM OpportunityLineItem
+    
     ];
     return opportunityLineItems;
     
@@ -13,21 +14,7 @@ public with sharing class DM002_Reservation_Panneau {
             PricebookEntry pbe = [SELECT id from PricebookEntry WHERE Product2Id = :productId LIMIT 1];
             return pbe ;
          }
-         public static Date formatDate(String dateString) {
-
-                // Parse the input date string
-                Date dateObj = Date.valueOf(dateString);
-                
-                // Extract year, month, and day
-                Integer year = dateObj.year();
-                Integer month = dateObj.month();
-                Integer day = dateObj.day();
-                
-                // Create a new Date object with the extracted components
-                Date formattedDate = Date.newInstance(year, month, day);
-                
-                return formattedDate;
-            } 
+    
  @AuraEnabled
  public static void createOpportunityProduct(List<OpportunityLineItem> oppProducts) {
     List<OpportunityLineItem> opps = new List<OpportunityLineItem>();

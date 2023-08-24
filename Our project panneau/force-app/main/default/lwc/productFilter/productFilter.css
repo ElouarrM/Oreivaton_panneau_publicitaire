@@ -1,5 +1,14 @@
-.btn
-{
-    margin-top: 23px;
-    margin-left: 61px;
+.slds-button_outline-brand {
+    background-color: #FFFFFF;
+    color: rgba(65, 148, 249, 1);
+    border: 1px solid grey;
+    border-radius: 4px;
+    margin-right: 30px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+.slds-button_outline-brand:hover {
+    background-color: rgba(65, 148, 249, 1);
+    color: #FFFFFF;
 }

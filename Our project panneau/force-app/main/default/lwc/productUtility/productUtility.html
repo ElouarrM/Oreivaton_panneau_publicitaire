@@ -5,8 +5,8 @@
     </div>
     <div class="divider"></div> 
  
-        <template for:each={listPanneaux} for:item="panneau">
-            <div class="slds-box slds-box_x-small" key={panneau.Id}>
+        <template for:each={listPanneaux} for:item="panneau" >
+            <div class="slds-box slds-box_x-small" key={panneau.Id} >
                 <div class="card-header slds-grid slds-grid_align-spread">
                 <h1 slot="title" class="title">{panneau.product.Name} </h1>
                 <lightning-button-icon  icon-name="utility:delete" data-id={panneau.product.Id} onclick={handleRemove}></lightning-button-icon>

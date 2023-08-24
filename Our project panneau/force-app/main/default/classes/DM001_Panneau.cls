@@ -20,9 +20,9 @@ public with sharing class DM001_Panneau {
         if (!products.isEmpty()) {
             Id prodId = products[0].Id;
             
-            relatedOpportunityProducts = [SELECT Id, Name, OpportunityId, Product2Id ,DateDeDebut__c ,DateDeFin__c
+            relatedOpportunityProducts = [SELECT Id, Name, OpportunityId, Product2Id ,DateDeDebut__c ,DateDeFin__c ,Opportunity.Name
                                           FROM OpportunityLineItem
-                                          WHERE Product2Id = :prodId
+                                          WHERE Product2Id = :prodId 
                                           ORDER BY DateDeDebut__c DESC];
         }
         

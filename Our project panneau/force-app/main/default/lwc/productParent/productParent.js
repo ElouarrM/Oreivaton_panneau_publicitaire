@@ -52,9 +52,10 @@ savePro;
         }
   
         updateSelectedTile(event) {
-            console.log('solving problem',this.recordId)
+          
             this.selectedproductid = event.detail.productId;
             this.selectedProduct = this.products.find((product) => product.product.Id === event.detail.productId);
+            console.log('update',this.selectedProduct)
         }
 
         @wire(opportunityProductDateRanges)
@@ -67,6 +68,7 @@ savePro;
  
         }
         //list of products that have oppProduct
+    
         listProduct ;
           @wire(opportunityProduct)
           opportunityProduct({ error, data }) {
@@ -86,17 +88,12 @@ savePro;
             const {address, type ,sDate , fDate} = searchCriteria;
             console.log(this.products)
             let filteredProducts = this.products;
-            let filteredOppPro = this.listProduct ;
-            console.log('products before filtering',filteredProducts)
-            console.log('type of paneau',type)
-            let liste ;
-            let temp ;
+            
             if (address){
                 console.log(filteredProducts)
                 filteredProducts = this.products.filter(
                     (product) => product.product.Adresse__c.toLowerCase() === address
                   );
-                  console.log('apres filtrage par adresse',JSON.stringify(filteredProducts))}
                     if (type) {
                         if (type == 'Roulant'){
                                         console.log(type == 'Roulant')
@@ -195,7 +192,7 @@ savePro;
 
       
             
-        }
+        }}
 
     
 }

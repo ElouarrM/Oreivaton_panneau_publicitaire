@@ -49,36 +49,7 @@ export default class ProductFilter extends LightningElement {
 
             }
         }
-        /*
-        @track inputValidator = {
-          "adresse": false,
-          "type": false,
-          "startDate": false,
-          "finishDate": false
-      };
-
-        connectedCallback() {
-          console.log('callback is called')
-          const inputs = this.template.querySelectorAll('input');
-          const buttonSend = this.template.querySelector('.btn');
-  
-          inputs.forEach((input) => {
-              input.addEventListener('input', () => {
-                  const name = input.getAttribute('name');
-                  this.inputValidator[name] = input.value.length > 0;
-                  console.log('input validator',this.inputValidator[name])
-  
-                  const allInputsValid = Object.keys(this.inputValidator).every(
-                      (item) => this.inputValidator[item].trim() !== ''
-                  );
-
-                    console.log('test inputs valid',JSON.stringify(allInputsValid))
-                  //buttonSend.disabled = !allInputsValid;
-                  this.isSearchDisabled = !allInputsValid; 
-              });
-          });
-      }*/
-  
+      
   @api
   get selectedValue() {
     return this.selectedSearchResult ? this.selectedSearchResult : null;
@@ -123,9 +94,6 @@ export default class ProductFilter extends LightningElement {
         this.searchResults = null;
       }
     
-
-
-
     /*This section for type filter */
     typeValue = '';
 

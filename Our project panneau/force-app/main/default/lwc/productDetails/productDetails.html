@@ -27,23 +27,24 @@
 
                         </div>
                         <div>
-                            <lightning-input type="text" label="Montant" value={montant} onchange={handlePrice}></lightning-input>
+                            <lightning-input type="text" label="Montant" value={montant} onchange={handlePrice} required></lightning-input>
                         </div>
                         <pre><div class="slds-text-body_small">Reservations
                             <table>
                                 <thead>
                                     <tr>
-                                    <th>Date Début</th>
-                                    <th>Date Fin</th>
+                                        <th>Reservation</th>
+                                        <th>Date Début</th>
+                                        <th>Date Fin</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     
                                             <template for:each={oppProducts} for:item="opp">
                                                 <tr key={opp.Id}>
+                                                    <td>{opp.Opportunity.Name}</td>
                                                     <td>{opp.formattedDateDeDebut}</td>
                                                     <td>{opp.formattedDateDeFin}</td>
-
                                                      </tr>
                                             </template>
                             
