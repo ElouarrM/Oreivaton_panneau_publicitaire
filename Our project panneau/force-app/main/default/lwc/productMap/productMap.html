@@ -1,0 +1,17 @@
+<template>
+    <lightning-card >
+        <div class="slds-p-top_none">
+            <!--
+            <div>
+                <p><strong>Address de votre panneau:</strong> {product.product.Adresse__c}</p>
+            </div>
+            -->
+            <div if:true={product.product.Adresse__c}>
+                <lightning-map 
+                        map-markers={mapMarkers}
+                        zoom-level="14">
+                    </lightning-map>
+            </div>
+        </div>
+    </lightning-card>
+</template>

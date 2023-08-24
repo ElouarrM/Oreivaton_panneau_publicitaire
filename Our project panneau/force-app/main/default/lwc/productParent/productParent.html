@@ -34,6 +34,9 @@
             <lightning-tabset>
                 <lightning-tab label="Details de panneau" value="Details de panneau">
                     <c-product-details record-id={recordId} selected-product={selectedProduct} products={products} formated-price={formatedPrice}></c-product-details>
+                    <template if:true={selectedProduct}>
+                        <c-product-map product={selectedProduct}></c-product-map>
+                    </template>
                 </lightning-tab>
               
             </lightning-tabset>

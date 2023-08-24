@@ -1,7 +1,6 @@
 import { LightningElement, api ,wire , track} from 'lwc';
-import { subscribe, MessageContext } from 'lightning/messageService';
+import { subscribe, MessageContext ,unsubscribe } from 'lightning/messageService';
 import ComChannel from '@salesforce/messageChannel/ComChannel__c';
-import RemoveChannel from '@salesforce/messageChannel/RemoveChannel__c';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import createOpportunityProduct from '@salesforce/apex/DM002_Reservation_Panneau.createOpportunityProduct'
 export default class ProductUtility extends LightningElement {
@@ -35,8 +34,12 @@ export default class ProductUtility extends LightningElement {
         this.handleSubscribe();
         this.subscription = null;
     }
+
+    disconnectedCallback() {
+        unsubscribe(this.subscription);
+        this.subscription = null;
+     }
     handleSubscribe() {
-        console.log('testing function')
         if (this.subscription) {
             return;
         }

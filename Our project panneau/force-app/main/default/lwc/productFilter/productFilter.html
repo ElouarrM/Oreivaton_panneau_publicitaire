@@ -1,7 +1,7 @@
 <template>
     <lightning-card>
         <div class="slds-grid">
-
+            <!-- filtre Date -->
             <lightning-input class="slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium"
                 type="date" name="startDate" value={selectedSDate} onchange={handleDate} label="Start Date" >
             </lightning-input>
@@ -10,31 +10,34 @@
                 type="date" name="finishDate" value={selectedFDate} onchange={handleDate} label="Finish Date" >
 
             </lightning-input>
+            
             <!--Type Filter-->
             <div class="slds-form-element slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium">
                 <lightning-combobox name="type" label="Type" value="" placeholder="Select Type" options={options}
                     onchange={handleChange} ></lightning-combobox>
             </div>
+
+            <!-- filtre adresse -->
             <div class="slds-form-element slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium">
                 <div class="slds-form-element__control ">
-                    <lightning-input type="search" label="Adresse" name="adresse" onfocus={showItems} onlick={showItems}
+                    <lightning-input type="search" label="Adresse" name="adresse" onfocus={showItems} onlick={showItems} 
                         onchange={search} value={selectedValue}>
 
                     </lightning-input>
                     <div if:true={searchResults}
-                        class="slds-dropdown slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium "
+                        class="slds-dropdown slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium slds-dropdown_length-4 slds-dropdown_fluid"
                         role="listbox" onmouseleave={hideItems}>
 
-                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                        <ul class="slds-listbox slds-listbox_vertical " role="presentation">
                             <template for:each={searchResults} for:item="searchResult">
                                 <li key={searchResult} data-value={searchResult} role="presentation"
                                     onclick={selectSearchResult} class="slds-listbox__item">
-                                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small "
+                                    <div class=" slds-listbox__option slds-listbox__option_plain "
                                         role="option">
-                                        <span class="slds-media__body">
+                                      
                                             <span class="slds-truncate" title={searchResult}>
                                                 {searchResult}
-                                            </span>
+                            
                                         </span>
                                     </div>
                                 </li>
@@ -48,17 +51,18 @@
             <!-- <lightning-button 
                             type="brand" 
                             class="btn" 
-                            label="Search" 
+                            label="Chercher" 
                             variant="brand" 
                             size="small"
                             onclick={handleSearch}>
                         </lightning-button> -->
+           
                         
 
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-text-align_right">
                         <button type="button" class="slds-button slds-button_outline-brand" onclick={handleSearch} >Chercher</button>
-                    </div>
+                    </div>  
 
     </lightning-card>
 
