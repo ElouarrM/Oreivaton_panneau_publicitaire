@@ -9,7 +9,9 @@
  
   }
 
-
+.tab{
+  text-align: center;
+}
 
 .slds-button_outline-brand {
     background-color: #ffffff;

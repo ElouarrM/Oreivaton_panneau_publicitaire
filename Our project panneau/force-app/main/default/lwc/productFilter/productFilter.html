@@ -2,10 +2,15 @@
     <lightning-card>
         <div class="slds-grid">
             <!-- filtre Date -->
+            <div class="slds-col slds-size_1-of-12"> 
+              
+              </div>
             <lightning-input class="slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium"
                 type="date" name="startDate" value={selectedSDate} onchange={handleDate} label="Start Date" >
             </lightning-input>
-
+            <!-- <div class="slds-col slds-size_1-of-12"> 
+              
+            </div> -->
             <lightning-input class="slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium"
                 type="date" name="finishDate" value={selectedFDate} onchange={handleDate} label="Finish Date" >
 
@@ -25,7 +30,7 @@
 
                     </lightning-input>
                     <div if:true={searchResults}
-                        class="slds-dropdown slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium slds-dropdown_length-4 slds-dropdown_fluid"
+                        class="slds-dropdown slds-col  slds-dropdown_length-4 slds-dropdown_fluid"
                         role="listbox" onmouseleave={hideItems}>
 
                         <ul class="slds-listbox slds-listbox_vertical " role="presentation">
@@ -48,7 +53,11 @@
                 </div>
 
             </div>
-            <!-- <lightning-button 
+            <div class="slds-col slds-size_1-of-6  slds-size_x-small slds-var-m-horizontal_medium">
+               
+                    <button type="button" class="slds-button slds-button_outline-brand" onclick={handleSearch} >Chercher</button>
+                
+                <!-- <lightning-button 
                             type="brand" 
                             class="btn" 
                             label="Chercher" 
@@ -56,13 +65,14 @@
                             size="small"
                             onclick={handleSearch}>
                         </lightning-button> -->
-           
-                        
-
                     </div>
-                    <div class="slds-col slds-size_1-of-1 slds-text-align_right">
+                        
+                    <!-- <div class="slds-col slds-size_1-of-1 slds-text-align_right">
                         <button type="button" class="slds-button slds-button_outline-brand" onclick={handleSearch} >Chercher</button>
-                    </div>  
+                    </div>   -->
+                    </div>
+       
+                  
 
     </lightning-card>
 

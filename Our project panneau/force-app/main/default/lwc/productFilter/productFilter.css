@@ -4,6 +4,7 @@
     border: 1px solid grey;
     border-radius: 4px;
     margin-right: 30px;
+    margin-top: 23px;
     font-size: 12px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;

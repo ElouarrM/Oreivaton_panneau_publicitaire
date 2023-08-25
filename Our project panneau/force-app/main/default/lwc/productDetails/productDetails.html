@@ -11,14 +11,15 @@
                     <div class="slds-align_absolute-center">
                         <img src={selectedProduct.product.DisplayUrl} class="tile" />
                     </div>
+                    <!-- slds-text-body_small -->
                     <div class="slds-p-around_medium gray-border">
-                        <pre><div class="slds-text-body_small">Name         <strong>{selectedProduct.product.Name}</strong></div></pre>
-                        <pre><div class="slds-text-body_small">Type         <strong>{selectedProduct.product.Type__c}</strong></div></pre>
-                        <pre><div class="slds-text-body_small">Prix<lightning-icon icon-name="utility:info" size="x-small" title="C'est le prix par jour" aria-label="C'est le prix par jour"></lightning-icon>      <lightning-badge label={formatedPrice} style="margin-left: 34px"></lightning-badge> </div></pre>
+                        <pre><div >Name         <strong>{selectedProduct.product.Name}</strong></div></pre>
+                        <pre><div >Type         <strong>{selectedProduct.product.Type__c}</strong></div></pre>
+                        <pre><div >Prix<lightning-icon icon-name="utility:info" size="x-small" title="C'est le prix par jour" aria-label="C'est le prix par jour"></lightning-icon>      <lightning-badge label={formatedPrice} style="margin-left: 34px"></lightning-badge> </div></pre>
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
                                 <lightning-input class="slds-size_1-of-1" type="date" name="startDate"
-                                    value={sDate} label="Date de debut" onchange={handleDate} required></lightning-input>
+                                    value={sDate}  label="Date de debut" onchange={handleDate} required></lightning-input>
                             </div>
                             <div class="slds-col slds-size_1-of-2">
                                 <lightning-input class="slds-size_1-of-1" type="date" name="endDate"
@@ -29,22 +30,22 @@
                         <div>
                             <lightning-input type="text" label="Montant" value={montant} onchange={handlePrice} required></lightning-input>
                         </div>
-                        <pre><div class="slds-text-body_small">Reservations
+                       <div class="slds-text-body_small"> <pre>Liste de Reservations </pre>
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Reservation</th>
-                                        <th>Date Début</th>
-                                        <th>Date Fin</th>
+                                        <th class="tab">Reservation</th>
+                                        <th class="tab">Date Début</th>
+                                        <th class="tab">Date Fin</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     
                                             <template for:each={oppProducts} for:item="opp">
                                                 <tr key={opp.Id}>
-                                                    <td>{opp.Opportunity.Name}</td>
-                                                    <td>{opp.formattedDateDeDebut}</td>
-                                                    <td>{opp.formattedDateDeFin}</td>
+                                                    <td class="tab">{opp.Opportunity.Name}</td>
+                                                    <td class="tab">{opp.formattedDateDeDebut}</td>
+                                                    <td class="tab">{opp.formattedDateDeFin}</td>
                                                      </tr>
                                             </template>
                             
@@ -52,7 +53,7 @@
                             </table> 
                                 
                         </div>
-                        </pre>
+                       
                         
                     </div>
                 </div>
