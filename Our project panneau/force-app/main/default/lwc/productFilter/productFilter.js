@@ -26,10 +26,8 @@ export default class ProductFilter extends LightningElement {
              
           for(let i=0;i<this.products.length;i++){
             const productType = this.products[i].product.Type__c;
-            console.log(productType)
             typesSet.add(productType);
             const productAddress = this.products[i].product.Adresse__c;
-            console.log('adress',productAddress)
 
             addrSet.add(productAddress);
 
@@ -38,9 +36,7 @@ export default class ProductFilter extends LightningElement {
           
       // Convert Set to an array
         this.uniqueTypes = Array.from(typesSet);
-        console.log('array',JSON.stringify(this.uniqueTypes));
         this.uniqueAddresses = Array.from(addrSet)
-        console.log('array',JSON.stringify(this.uniqueAddresses));
 
                 
             } else if (error) {
@@ -70,17 +66,16 @@ export default class ProductFilter extends LightningElement {
      search(event){
       
        const input = event.target.value.toLowerCase();
-       console.log('input value',input)        
+          
        const result = this.uniqueAddresses.filter((picklistOption) => picklistOption.toLowerCase().includes(input));
         this.searchResults = result;
 
-       console.log('search result',JSON.stringify(this.searchResults))
+       
       
     }
 
     selectSearchResult(event) {
         const selectedValue = event.currentTarget.dataset.value;
-        console.log('selected value',selectedValue)
         this.selectedSearchResult = this.uniqueAddresses.find(
           (picklistOption) => picklistOption === selectedValue
         );
@@ -141,7 +136,7 @@ export default class ProductFilter extends LightningElement {
       handleSearch(){
       
         
-        console.log('test')
+        
        const  searchCriteria = {
           address: this.selectedValue,
           type: this.value,
@@ -151,7 +146,7 @@ export default class ProductFilter extends LightningElement {
         const searchEvent = new CustomEvent('search',{
           detail : searchCriteria 
         })
-       console.log('event',searchEvent)
+      
         this.dispatchEvent(searchEvent);
 
       }

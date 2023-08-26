@@ -57,8 +57,7 @@ savePro;
             this.selectedproductid = event.detail.productId;
             this.selectedProduct = this.products.find((product) => product.product.Id === event.detail.productId);
             this.formatedPrice = `${this.selectedProduct.price} MAD`;
-            console.log('priiice',this.formatedPrice)
-            console.log('update',this.selectedProduct)
+           
         }
 
         @wire(opportunityProductDateRanges)
@@ -101,7 +100,6 @@ savePro;
                   );
                     if (type) {
                         if (type == 'Roulant'){
-                                        console.log(type == 'Roulant')
                                             //keep only elements with available ads
                                             filteredProducts = filteredProducts.filter((product)=>{
                                                 return product.product.Nb_des_fiches__c > product.product.current_ad_num__c ; 
@@ -112,7 +110,6 @@ savePro;
                     filteredProducts = filteredProducts.filter(
                       (product) => product.product.Type__c.toLowerCase() === type.toLowerCase()
                     );
-                    console.log('apres filtrage par type',JSON.stringify(filteredProducts)) ;
 
                     }
                     //console.log('avant filtrage ',JSON.stringify(this.listOpp))
@@ -142,57 +139,12 @@ savePro;
                     
                     
                         
-                        console.log('apres filtrage normal',JSON.parse(JSON.stringify(filteredProducts)))
                     }
-                
-
-
-
-
-
-
-                    // if(sDate && fDate ){
-                    //     console.log("are you even seeing me ")
-                    //     //on itere sur la liste des oppproduct correspondent aux dates entrées
-                    //     for(let i=0 ;i<this.listProduct.length;i++){
-                           
-    
-                    //         //  console.log(sDate == this.listProduct[i].DateDeDebut__c)
-                    //         //  console.log(sDate == this.listProduct[i].DateDeFin__c)
-
-                    //         //console.log(this.listProduct[i])
-    
-                    //         if(sDate == this.listProduct[i].DateDeDebut__c && fDate == this.listProduct[i].DateDeFin__c){
-                    //                console.log("gooos test",sDate == this.listProduct[i].DateDeDebut__c && fDate == this.listProduct[i].DateDeFin__c)
-                    //                 console.log(this.listProduct[i].Product2Id)
-                    //            if (type == 'Roulant'){
-                    //             console.log(type == 'Roulant')
-                    //                 //keep only elements with
-                    //                 filteredProducts = filteredProducts.filter((product)=>{
-                    //                     return product.product.Nb_des_fiches__c > product.product.current_ad_num__c ; 
-
-                    //                 })
-                                
-                    //            }
-
-                             
-                    //             //we keep the signs with dates different than the entered one
-                    //             filteredProducts = filteredProducts.filter((product)=>{
-                    //                     return product.product.Id != this.listProduct[i].Product2Id
-                    //             })
-
-                    //                 console.log("liste apres filtrage par date",JSON.stringify(filteredProducts))   
-                                                             
-                    //         }
-                    //     }
-                      
-                    // }
-    
+            
                 
             this.products = filteredProducts;
             this.groupedProducts = this.groupProducts(this.products, PRODUCTS_PER_ROW);
 
-            console.log('heloo',JSON.stringify(this.groupedProducts))
 
 
       
