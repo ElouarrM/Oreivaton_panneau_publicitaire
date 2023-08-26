@@ -11,6 +11,8 @@ export default class ProductDetails extends LightningElement {
     
     @api products ;
     @api selectedProduct;
+    @api dateDebut ;
+    @api dateFin ;
     imageUrl = MY_IMAGE;
     @api listOfPanneaux = new Set();
     @wire(MessageContext)
@@ -27,7 +29,7 @@ export default class ProductDetails extends LightningElement {
     @api formatedPrice ;
 
 
-    @wire(getOppProdByProductId , { productId: '$selectedProduct.product.Id'  })
+    @wire(getOppProdByProductId , { productId: '$selectedProduct.product.Id' , dateDebut :'$dateDebut', dateFin:'$dateFin' })
     wiredProducts ({ error, data }) {
             if (data) {
                 this.oppProducts = data ? data : [];

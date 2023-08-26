@@ -13,7 +13,8 @@ export default class ProductParent extends LightningElement {
     oppProduct = [] ;
     listOpp ;
     @api recordId ;
-
+    @api dateDebut ;
+    @api dateFin ;
 
 
 savePro;
@@ -90,6 +91,8 @@ savePro;
             const {address, type ,sDate , fDate} = searchCriteria;
             console.log(this.products)
             let filteredProducts = this.products;
+            this.dateDebut = new Date(sDate) ;
+            this.dateFin = new Date(fDate) ;
             
             if (address){
                 console.log(filteredProducts)
