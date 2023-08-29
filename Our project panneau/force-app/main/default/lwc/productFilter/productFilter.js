@@ -37,7 +37,7 @@ export default class ProductFilter extends LightningElement {
       // Convert Set to an array
         this.uniqueTypes = Array.from(typesSet);
         this.uniqueAddresses = Array.from(addrSet)
-
+        console.log('adresses',JSON.stringify(this.uniqueAddresses))
                 
             } else if (error) {
                 console.log(' error' );
@@ -119,8 +119,8 @@ export default class ProductFilter extends LightningElement {
       }
       
         handleDate(event){
-            this.selectedSDate = event.target.value;
-          console.log(this.selectedSDate)
+          //   this.selectedSDate = event.target.value;
+          // console.log(this.selectedSDate)
           const fieldName = event.target.name ;
           
           if(fieldName == 'startDate'){
@@ -134,7 +134,6 @@ export default class ProductFilter extends LightningElement {
     
       //filters get applied when we click the button 
       handleSearch(){
-      
         
         
        const  searchCriteria = {
@@ -143,6 +142,7 @@ export default class ProductFilter extends LightningElement {
           sDate: this.selectedSDate,
           fDate: this.selectedFDate
         };
+
         const searchEvent = new CustomEvent('search',{
           detail : searchCriteria 
         })

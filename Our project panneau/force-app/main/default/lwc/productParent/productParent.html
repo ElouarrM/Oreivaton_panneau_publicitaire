@@ -38,8 +38,10 @@
                     products={products} 
                     formated-price={formatedPrice} 
                     date-debut={dateDebut}
-                     date-fin={dateFin}>
-</c-product-details>                    <template if:true={selectedProduct}>
+                     date-fin={dateFin}
+                    >
+</c-product-details>                  
+                <template if:true={selectedProduct}>
                         <c-product-map product={selectedProduct}></c-product-map>
                     </template>
                 </lightning-tab>

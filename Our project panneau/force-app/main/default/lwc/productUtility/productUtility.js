@@ -28,6 +28,7 @@ export default class ProductUtility extends LightningElement {
     }
 
     listIds = [];
+    parents = new Set();
 
     connectedCallback() {
         console.log('callback is being called')
@@ -42,9 +43,10 @@ export default class ProductUtility extends LightningElement {
     handleSubscribe() {
         if (this.subscription) {
             return;
-        }
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         this.subscription = subscribe(this.messageContext, ComChannel, (message) => {
             let  id = message.message.product.Id ;
+            console.log('liste des panneaux',JSON.stringify(this.listPanneaux))
             /*if list is empty add without check if not add only id not
             existing on the list  */
             if(!this.listIds.includes(id)){
@@ -60,12 +62,23 @@ export default class ProductUtility extends LightningElement {
                 this.oppProduct.Quantity = Difference_In_Time / (1000 * 3600 * 24);
                 this.oppProduct.OpportunityId = message.recordId ;
                 this.oppProduct.Product2Id = message.message.product.Id 
+                
                 this.oppProduct.UnitPrice = message.montant ;
                 this.listOppProducts.push(this.oppProduct)
+                
                 console.log('another test',JSON.parse(JSON.stringify(this.listOppProducts)))
                 console.log('created oppProduct',JSON.parse(JSON.stringify(this.oppProduct)));
                 //Pour afficher le MAD on formate le prix 
-                this.listPanneaux.push(message.message)
+                if(message.message.product.Product__c != null){
+                    console.log('static with parent')
+                    
+                    this.listPanneaux.push(message.parent);
+                }else{
+                    console.log('static without parent')
+
+                    this.listPanneaux.push(message.message)
+                }
+                
                 this.listPanneaux = this.listPanneaux.map(panneau => ({
                     ...panneau,
                 formattedPrice: `${panneau.price} MAD `
@@ -125,7 +138,6 @@ export default class ProductUtility extends LightningElement {
         // publish(this.messageContext, RemoveChannel, message);
     }
 
-   
 
     handleClick(){
         console.log("helooooo")

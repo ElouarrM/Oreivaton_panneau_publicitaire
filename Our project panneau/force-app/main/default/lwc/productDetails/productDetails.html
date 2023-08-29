@@ -13,9 +13,9 @@
                     </div>
                     <!-- slds-text-body_small -->
                     <div class="slds-p-around_medium gray-border">
-                        <pre><div >Name         <strong>{selectedProduct.product.Name}</strong></div></pre>
+                        <pre><div >Nom          <strong>{selectedProduct.product.Name}</strong></div></pre>
                         <pre><div >Type         <strong>{selectedProduct.product.Type__c}</strong></div></pre>
-                        <pre><div >Prix<lightning-icon icon-name="utility:info" size="x-small" title="C'est le prix par jour" aria-label="C'est le prix par jour"></lightning-icon>      <lightning-badge label={formatedPrice} style="margin-left: 34px"></lightning-badge> </div></pre>
+                        <pre><div >Prix <lightning-icon icon-name="utility:info" size="x-small" title="C'est le prix par jour" aria-label="C'est le prix par jour"></lightning-icon>      <lightning-badge label={formatedPrice} style="margin-left: 34px"></lightning-badge> </div></pre>
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2">
                                 <lightning-input class="slds-size_1-of-1" type="date" name="startDate"
@@ -30,6 +30,19 @@
                         <div>
                             <lightning-input type="text" label="Montant" value={montant} onchange={handlePrice} required></lightning-input>
                         </div>
+                        <template if:false={isStatic}>
+                        <label for="mySelector">Choisir une affiche :</label>
+    
+                        <select id="mySelector" onchange={handleSelectChange}>
+                            <option value="">Choisir une affiche</option> 
+                            <template  for:each={dynamicOpp} for:item="nbr">
+                            <option key={nbr.product.Index__c} value={nbr.product.Index__c}>{nbr.product.Index__c}</option>
+                            
+                            </template>
+                        </select>
+                    </template>
+                        
+                        <template if:true={isStatic}>
                        <div class="slds-text-body_small"> <pre>Liste de Reservations </pre>
                             <table>
                                 <thead>
@@ -53,6 +66,35 @@
                             </table> 
                                 
                         </div>
+                    </template>
+                        <template if:false={isStatic} for:each={dynamicOpp} for:item="nbr">
+                           
+                            <div key={nbr.product.Index__c}>
+                            <p>Fiche {nbr.product.Index__c} :</p>
+
+                            <table >
+                                <thead>
+                                    <tr>
+                                        <th class="tab">Reservation</th>
+                                        <th class="tab">Date Début</th>
+                                        <th class="tab">Date Fin</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                            <template for:each={nbr.opportunityProducts} for:item="opp">
+                                                <tr key={opp.Id}>
+                                                    <td class="tab">{opp.Opportunity.Name}</td>
+                                                    <td class="tab">{opp.DateDeDebut__c}</td>
+                                                    <td class="tab">{opp.DateDeFin__c}</td>
+                                                     </tr>
+                                            </template>
+                            
+                            </tbody>
+                            </table> 
+                           </div>
+                        
+                        </template>
                        
                         
                     </div>
@@ -60,9 +102,11 @@
             </div>
         </template>
         <template if:false={selectedProduct}>
+
             <div class="slds-align_absolute-center">
                 <img src={imageUrl} alt="My Image" class="tile" />
             </div>
+            
         </template>
     </lightning-card>
 </template>

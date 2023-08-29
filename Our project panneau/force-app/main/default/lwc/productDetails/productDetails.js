@@ -5,7 +5,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import {publish, MessageContext , subscribe} from 'lightning/messageService'
 import MY_IMAGE from '@salesforce/resourceUrl/imgae'
 import getOppProdByProductId from  '@salesforce/apex/DM001_Panneau.getOppProdByProductId'
-
+import getWrappedStaticProductsById from '@salesforce/apex/SM001_Panneau.getWrappedStaticProductsById'
 
 export default class ProductDetails extends LightningElement {
     
@@ -27,26 +27,67 @@ export default class ProductDetails extends LightningElement {
     @track list1 = [];
     @api montant ;
     @api formatedPrice ;
-
-
+    dynamicOpp ;
+    isStatic = true ;
+    @api affiche ;
+    nb_fiches ;
+    @api listChart ;
+    @api sentProduct ;
+    @api sentOpps ;
+    @api parent ;  
+    @api isEmpty ;
+    
     @wire(getOppProdByProductId , { productId: '$selectedProduct.product.Id' , dateDebut :'$dateDebut', dateFin:'$dateFin' })
     wiredProducts ({ error, data }) {
             if (data) {
                 this.oppProducts = data ? data : [];
+
                 this.oppProducts = data.map(opp => ({
                     ...opp,
                     formattedDateDeDebut: this.formatDate(opp.DateDeDebut__c),
                     formattedDateDeFin: this.formatDate(opp.DateDeFin__c)
                 }));
                 console.log('testing',JSON.stringify(this.oppProducts));
-                
+              
                 this.enableDisableButton(this.listIds);
-
+            
+            
             } else if (error) {
                 console.log(' #### error' );
                 this.oppProducts = undefined;
 
             }
+        }
+
+
+        @wire(getWrappedStaticProductsById , {parentId: '$selectedProduct.product.Id', dateDebut :'$dateDebut', dateFin:'$dateFin'})
+        getWrappedStaticProductsById({error,data}){
+            if (data) {
+                if(this.selectedProduct.product.Type__c == 'Statique'){
+                    this.isStatic = true ; 
+                }else if(this.selectedProduct.product.Type__c == 'Roulant'){
+                    this.isStatic = false ;                 }
+               
+                this.dynamicOpp = data ? data : [];
+               console.log('testing',JSON.stringify(this.dynamicOpp))
+              
+                if(this.selectedProduct.product.Type__c == 'Roulant'){
+
+                   
+                    }
+    
+               
+            
+            } else if (error) {
+                console.log(' #### error' );
+                this.dynamicOpp = undefined;
+
+            }
+        }
+       
+        handleSelectChange(event){
+            this.affiche = event.target.value ;
+            console.log('affiche',this.affiche);
         }
 
         formatDate(dateString) {
@@ -76,11 +117,28 @@ export default class ProductDetails extends LightningElement {
                     this.ShowToast('Error','Must fill all fields','warning','dismissable ')
 
        }else
-       {
+       { 
+           if(this.selectedProduct.product.Type__c == 'Roulant'){
+                    this.parent = this.selectedProduct ;
+                    this.dynamicOpp.forEach((product)=>{
+                       
+                        //Le produit sera celui ayant le meme index selectionné
+                        if(product.product.Index__c == this.affiche){
+                                this.sentProduct = product ;
+                                console.log('sent to product',JSON.stringify(this.sentProduct))
+                                this.sentOpps = product.opportunityProducts ;
+
+                               
+                        }
+                    })
+           }else if(this.selectedProduct.product.Type__c == 'Statique'){
+                    this.sentProduct = this.selectedProduct ;
+                    this.sentOpps =  this.oppProducts ;
+           }
         
-            if(this.oppProducts.length == 0){
+            if(this.sentOpps.length == 0){
                
-                let message = {message: this.selectedProduct , dDebut:this.sDate , dFin:this.fDate , montant : this.montant ,recordId:this.recordId};
+                let message = {message: this.sentProduct , dDebut:this.sDate , dFin:this.fDate , montant : this.montant ,recordId:this.recordId,parent:this.parent};
                 publish(this.messageContext, ComChannel, message);
                 console.log('published');
      
@@ -88,16 +146,16 @@ export default class ProductDetails extends LightningElement {
             }else
             {
         
-                for(let i=0;this.oppProducts.length;i++){
+                for(let i=0;this.sentOpps.length;i++){
 
-                    if(this.sDate >= this.oppProducts[i].DateDeDebut__c && this.sDate <= this.oppProducts[i].DateDeFin__c ||
-                        this.fDate >= this.oppProducts[i].DateDeDebut__c && this.fDate <= this.oppProducts[i].DateDeFin__c ||
-                        this.sDate <= this.oppProducts[i].DateDeDebut__c && this.fDate >= this.oppProducts[i].DateDeFin__c )
+                    if(this.sDate >= this.sentOpps[i].DateDeDebut__c && this.sDate <= this.sentOpps[i].DateDeFin__c ||
+                        this.fDate >= this.sentOpps[i].DateDeDebut__c && this.fDate <= this.sentOpps[i].DateDeFin__c ||
+                        this.sDate <= this.sentOpps[i].DateDeDebut__c && this.fDate >= this.sentOpps[i].DateDeFin__c )
                     {
                             this.ShowToast('Error','Date already full','warning','dismissable ')
                     }else
                     {
-                            let message = {message: this.selectedProduct , dDebut:this.sDate , dFin:this.fDate , montant : this.montant ,recordId:this.recordId};
+                            let message = {message: this.sentProduct , dDebut:this.sDate , dFin:this.fDate , montant : this.montant ,recordId:this.recordId , parent:this.parent};
                             publish(this.messageContext, ComChannel, message);
                     }
             
@@ -135,6 +193,7 @@ export default class ProductDetails extends LightningElement {
     
     connectedCallback(){
             console.log('i m called now');
+
          this.handleSubscribe();
 
     }
@@ -165,4 +224,6 @@ export default class ProductDetails extends LightningElement {
         });
         this.dispatchEvent(evt);
     }
+
+    
 }
