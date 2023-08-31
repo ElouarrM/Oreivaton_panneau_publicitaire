@@ -1,12 +1,13 @@
 <template>
     <lightning-card>
+        
         <div class="slds-grid">
             <!-- filtre Date -->
             <div class="slds-col slds-size_1-of-12"> 
               
               </div>
             <lightning-input class="slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium"
-                type="date" name="startDate" value={selectedSDate} onchange={handleDate} label="Date Début" >
+                type="date" name="startDate" value={selectedSDate} onchange={handleDate} label="Date Début"  >
             </lightning-input>
             <!-- <div class="slds-col slds-size_1-of-12"> 
               
@@ -19,14 +20,14 @@
             <!--Type Filter-->
             <div class="slds-form-element slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium">
                 <lightning-combobox name="type" label="Type" value="" placeholder="Selectionner type" options={options}
-                    onchange={handleChange} ></lightning-combobox>
+                    onchange={handleChange}  ></lightning-combobox>
             </div>
 
             <!-- filtre adresse -->
             <div class="slds-form-element slds-col slds-size_1-of-6 slds-size_x-small slds-var-m-horizontal_medium">
                 <div class="slds-form-element__control ">
                     <lightning-input type="search" label="Adresse" name="adresse" onfocus={showItems} onlick={showItems} 
-                        onchange={search} value={selectedValue}>
+                        onchange={search} value={selectedValue}  >
 
                     </lightning-input>
                     <div if:true={searchResults}
@@ -55,7 +56,7 @@
             </div>
             <div class="slds-col slds-size_1-of-6  slds-size_x-small slds-var-m-horizontal_medium">
                
-                    <button type="button" class="slds-button slds-button_outline-brand" onclick={handleSearch} >Chercher</button>
+                    <button type="submit" class="slds-button slds-button_outline-brand" onclick={handleSearch} >Chercher</button>
                 
                 <!-- <lightning-button 
                             type="brand" 
@@ -73,7 +74,6 @@
                     </div>
        
                   
-
     </lightning-card>
 
 

@@ -121,9 +121,9 @@ public with sharing class SM001_Panneau {
                             }
                         }
                         /*On itere sur chaque reservation de chaque produit et on compare les dates */
-                        if(sDate != null && fDate != null){
+                        if(sDate != null && fDate != null)
                         for(ProductWrapper product : byType){
-                            if(product.opportunityProducts.size() == 0 ){
+                            if(product.opportunityProducts == null ){
                                 productsFilteredDate.add(product);
 
                             }else{
@@ -132,11 +132,14 @@ public with sharing class SM001_Panneau {
                                 // if( i < product.opportunityProducts.size()){
                                 //     OpportunityLineItem opp1 = product.opportunityProducts[i+1];}
                                         //(opp.DateDeFin__c > sDate && opp1.DateDeDebut__c < fDate) 
-                                if((opp.DateDeDebut__c <= sDate && opp.DateDeFin__c <= fDate) ||
-                                    (opp.DateDeDebut__c >= sDate && opp.DateDeFin__c >= fDate) ||
+                                if(
+                                     
+                                (opp.DateDeDebut__c < sDate && opp.DateDeFin__c < fDate) ||
         
-                                    (opp.DateDeDebut__c >= sDate && opp.DateDeFin__c <= sDate) ||
-                                    (opp.DateDeDebut__c >= sDate && opp.DateDeFin__c <= fDate) )
+                                (opp.DateDeDebut__c > sDate && opp.DateDeFin__c > fDate) ||
+                                (opp.DateDeDebut__c > sDate && opp.DateDeFin__c <= fDate) ||
+                                (opp.DateDeDebut__c < sDate && opp.DateDeFin__c < fDate) 
+                                    )
                                 {
                                     productsFilteredDate.add(product);
                                 }

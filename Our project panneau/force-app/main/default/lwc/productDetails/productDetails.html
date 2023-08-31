@@ -31,15 +31,17 @@
                             <lightning-input type="text" label="Montant" value={montant} onchange={handlePrice} required></lightning-input>
                         </div>
                         <template if:false={isStatic}>
-                        <label for="mySelector">Choisir une affiche :</label>
-    
-                        <select id="mySelector" onchange={handleSelectChange}>
-                            <option value="">Choisir une affiche</option> 
+                            <div class="slds-p-top_small ">
+                        <label for="mySelector" class="slds-p-right_small">Choisir une affiche</label>
+                                
+                        <select id="mySelector" onchange={handleSelectChange} >
+                            <option value="">Selectionner ...</option> 
                             <template  for:each={dynamicOpp} for:item="nbr">
                             <option key={nbr.product.Index__c} value={nbr.product.Index__c}>{nbr.product.Index__c}</option>
                             
                             </template>
                         </select>
+                    </div>
                     </template>
                         
                         <template if:true={isStatic}>

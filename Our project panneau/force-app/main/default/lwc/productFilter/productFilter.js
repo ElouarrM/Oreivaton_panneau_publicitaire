@@ -1,4 +1,6 @@
 import { LightningElement , track,wire ,api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
 //import getProductAddresses from '@salesforce/apex/LC001_Panneau.getProductAddresses';
 import opportunityProductDateRanges from '@salesforce/apex/LC002_Reservation_Panneau.opportunityProductDateRanges'
 //import opportunityProduct from '@salesforce/apex/LC002_Reservation_Panneau.opportunityProduct'
@@ -131,23 +133,41 @@ export default class ProductFilter extends LightningElement {
           }
       }
     
-    
+      ShowToast(title, message, variant, mode){
+        const evt = new ShowToastEvent({
+            title: title,
+            message:message,
+            variant: variant,
+            mode: mode
+        });
+        this.dispatchEvent(evt);
+    }
       //filters get applied when we click the button 
       handleSearch(){
-        
-        
-       const  searchCriteria = {
-          address: this.selectedValue,
-          type: this.value,
-          sDate: this.selectedSDate,
-          fDate: this.selectedFDate
-        };
+       
 
-        const searchEvent = new CustomEvent('search',{
-          detail : searchCriteria 
-        })
+        if( this.selectedSDate == '' || 
+           this.selectedFDate == '' || 
+           this.value == null||
+           this.selectedValue == 'undefined'){
+          this.ShowToast('','Remplisser tout les filtres','error','dismissable ')
+        }else{
+
+          const  searchCriteria = {
+            address: this.selectedValue,
+            type: this.value,
+            sDate: this.selectedSDate,
+            fDate: this.selectedFDate
+          };
+  
+          const searchEvent = new CustomEvent('search',{
+            detail : searchCriteria 
+          })
+        
+          this.dispatchEvent(searchEvent);
+        }
+        
       
-        this.dispatchEvent(searchEvent);
 
       }
      

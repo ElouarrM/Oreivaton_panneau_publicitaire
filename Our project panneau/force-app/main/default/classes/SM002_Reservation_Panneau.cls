@@ -32,8 +32,14 @@ public with sharing class SM002_Reservation_Panneau {
 
         return dateRanges;
      }
+
     
- 
+    //  @AuraEnabled(cacheable=true)
+    //  public static List<OpportunityLineItem>  getOppProdByProductIds(){
+    //     List<OpportunityLineItem> opps =  DM001_Panneau.getOppProdByProductIds();
+
+
+    //  }
 
 
     

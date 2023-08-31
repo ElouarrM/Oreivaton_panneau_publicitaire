@@ -31,7 +31,6 @@ export default class ProductUtility extends LightningElement {
     parents = new Set();
 
     connectedCallback() {
-        console.log('callback is being called')
         this.handleSubscribe();
         this.subscription = null;
     }
@@ -46,10 +45,12 @@ export default class ProductUtility extends LightningElement {
         }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         this.subscription = subscribe(this.messageContext, ComChannel, (message) => {
             let  id = message.message.product.Id ;
-            console.log('liste des panneaux',JSON.stringify(this.listPanneaux))
+           
             /*if list is empty add without check if not add only id not
             existing on the list  */
+            console.log('liste des ids',JSON.stringify(this.listIds));
             if(!this.listIds.includes(id)){
+                console.log('the id is different')
                  this.listIds.push(id);
                          //ce bloque s'execute apres check si reser exite !!!
                 this.oppProduct.DateDeDebut__c = new Date(message.dDebut);
@@ -66,30 +67,44 @@ export default class ProductUtility extends LightningElement {
                 this.oppProduct.UnitPrice = message.montant ;
                 this.listOppProducts.push(this.oppProduct)
                 
-                console.log('another test',JSON.parse(JSON.stringify(this.listOppProducts)))
-                console.log('created oppProduct',JSON.parse(JSON.stringify(this.oppProduct)));
+               
                 //Pour afficher le MAD on formate le prix 
                 if(message.message.product.Product__c != null){
-                    console.log('static with parent')
+                    if(this.listPanneaux.length == 0 ){
+                        this.listPanneaux.push(message.parent);
+
+                    }else{
+                    this.listPanneaux.forEach((product)=>{
+
+                        if(message.message.product.Product__c == product.product.Id){
+                            this.ShowToast('Ajout impossible d\'une annonce pour le même panneau', message.message, 'error', 'dismissable');
+
+                        }
+                    else{
+                        this.listPanneaux.push(message.parent);
+                        this.ShowToast('Panneau ajouté avec succès', message.message, 'success', 'dismissable');
+
+
+                    }
+                    })}
                     
-                    this.listPanneaux.push(message.parent);
                 }else{
                     console.log('static without parent')
 
                     this.listPanneaux.push(message.message)
+                    this.ShowToast('Panneau ajouté avec succès', message.message, 'success', 'dismissable');
+
                 }
                 
                 this.listPanneaux = this.listPanneaux.map(panneau => ({
                     ...panneau,
                 formattedPrice: `${panneau.price} MAD `
             }));
-            this.ShowToast('Panneau ajouté avec succès', message.message, 'success', 'dismissable');
             
             }else{
-                this.ShowToast('Panneau exist deja', message.message, 'info', 'dismissable');
+                this.ShowToast('Panneau existe', message.message, 'info', 'dismissable');
             }
            
-            console.log('la liste des produits',JSON.parse(JSON.stringify(this.listPanneaux)))
             this.publisherMessage = message.message;
                 
             //this.ShowToast('Panneau ajouté avec succès', message.message, 'success', 'dismissable');
@@ -141,6 +156,7 @@ export default class ProductUtility extends LightningElement {
 
     handleClick(){
         console.log("helooooo")
+        console.log('created opps',this.listOppProducts)
         createOpportunityProduct({ oppProducts: this.listOppProducts })
             .then(()=>{
                 const evt = new ShowToastEvent({
@@ -165,7 +181,13 @@ export default class ProductUtility extends LightningElement {
                 console.log('heloo')
               }) 
               console.log('okk :',JSON.stringify(this.listOppProducts));
-            
+              setTimeout(() => {
+                window.location.reload()
+                }, "1500");
+              
+                
+
     }
+
  
 }

@@ -6,7 +6,7 @@ import {publish, MessageContext , subscribe} from 'lightning/messageService'
 import MY_IMAGE from '@salesforce/resourceUrl/imgae'
 import getOppProdByProductId from  '@salesforce/apex/DM001_Panneau.getOppProdByProductId'
 import getWrappedStaticProductsById from '@salesforce/apex/SM001_Panneau.getWrappedStaticProductsById'
-
+import getOppProdByProductIds from '@salesforce/apex/DM001_Panneau.getOppProdByProductIds'
 export default class ProductDetails extends LightningElement {
     
     @api products ;
@@ -36,6 +36,7 @@ export default class ProductDetails extends LightningElement {
     @api sentOpps ;
     @api parent ;  
     @api isEmpty ;
+    oppsCurrentproduct ;
     
     @wire(getOppProdByProductId , { productId: '$selectedProduct.product.Id' , dateDebut :'$dateDebut', dateFin:'$dateFin' })
     wiredProducts ({ error, data }) {
@@ -84,10 +85,28 @@ export default class ProductDetails extends LightningElement {
 
             }
         }
+
+        @wire(getOppProdByProductIds , {parentId: '$selectedProduct.product.Id'})
+        getOppProdByProductIds({error,data}){
+
+            if (data) {
+               
+                console.log('##data',data);
+                this.oppsCurrentproduct = data ? data : [];          
+    
+            } else if (error) {
+
+                console.log(' #### error' );
+                this.oppsCurrentproduct = undefined;
+
+            }
+
+
+
+        }
        
         handleSelectChange(event){
             this.affiche = event.target.value ;
-            console.log('affiche',this.affiche);
         }
 
         formatDate(dateString) {
@@ -125,7 +144,6 @@ export default class ProductDetails extends LightningElement {
                         //Le produit sera celui ayant le meme index selectionné
                         if(product.product.Index__c == this.affiche){
                                 this.sentProduct = product ;
-                                console.log('sent to product',JSON.stringify(this.sentProduct))
                                 this.sentOpps = product.opportunityProducts ;
 
                                
@@ -145,7 +163,7 @@ export default class ProductDetails extends LightningElement {
 
             }else
             {
-        
+                console.log('doing the date check');
                 for(let i=0;this.sentOpps.length;i++){
 
                     if(this.sDate >= this.sentOpps[i].DateDeDebut__c && this.sDate <= this.sentOpps[i].DateDeFin__c ||
